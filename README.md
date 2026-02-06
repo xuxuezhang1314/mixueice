@@ -1,2 +1,2 @@
-# mixueice.github.io
-mixueice.github.io
+# mixueice
+mixueice
